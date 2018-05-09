@@ -1,0 +1,9 @@
+*.aux
+*.toc
+*.dvi
+*.log
+*.out
+*.synctex.gz
+*/analyse_menaces.pdf
+*/main.pdf
+*.swp
