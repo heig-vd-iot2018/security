@@ -206,6 +206,7 @@ Ce document a pour but la sécurisation du projet élaboré dans le cadre du cou
 \subsection{Equipes}
 Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartissant la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
 
+\renewcommand{\arraystretch}{1.2}
 \begin{center}
 \begin{tabular}{|l|l|}
 	\hline
@@ -241,6 +242,7 @@ Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les d
 	\hline
 \end{tabular}
 \end{center}
+\renewcommand{\arraystretch}{1}
 
 \newpage
 \section{Description du système}
@@ -282,8 +284,29 @@ Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que 
 
 %------------------------ Biens a protéger ---------------------------------
 \subsection{Biens nécessitants une protections}
-Les biens principaux à sécuriser sont les données transmises entre les différents capteurs et la gateway, ainsi que leur transit vers le serveur d'application et leur utilisation sur ce dernier.
 
+Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet. 
+
+Les biens concernés par cette protection sont les suivants : 
+
+\begin{itemize}
+\item[•] Les données transmises par les capteurs
+\begin{itemize}
+\item Identité
+\item Géo-localisation
+\item Données environnementales 
+\end{itemize}
+\item[•] Les données utilisateurs
+\begin{itemize}
+\item Adresses e-mails \footnote{Afin d'éviter toute réutilisation pour du phishing ou du spamming de masse.}
+\item Rôles des utilisateurs \footnote{Pour éviter les vols de session ciblés.}
+\item Mots de passe \footnote{Les raisons sont évidentes et de plus ces mots de passe pourraient être ajouté à des listes de brute-force.}
+\end{itemize}
+\item[•] Le fonctionnement de l'application
+\item[•] Les appareils et éléments physiques qui font tourner l'architecture
+\end{itemize}
+
+Ces biens doivent être protégés à tous les niveaux et à tous les endroits où elles sont susceptibles d'apparaitre (e.g. des capteurs à la gateway mais aussi de la gateway au serveur d'application).
 
 %------------------------ Périmètre sécurisation ---------------------------
 \subsection{Périmètre de sécurisation}
