@@ -245,11 +245,11 @@ Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les d
 \newpage
 \section{Description du système}
 
-\subsection{Objectifs du système} % description précise du système (nb de capteurs, leur rôles, infra, ...)
+\subsection{Objectifs du système}\label{objectifssysteme}% description précise du système (nb de capteurs, leur rôles, infra, ...)
 
 Le but de ce système est la collecte de données depuis plusieurs capteurs répartis sur le site de Cheaseaux. Toutes les informations seront consultables sur un frontend accessible par les visiteurs authentifiés sur un compte publique.
 
-Les différents capteurs (voir \autoref{elementssysteme}) se chargent de récolter des informations relatifs à leur environnement et les transmettent à une gateway dont le but est de collecter ces informations des différentes sources. Un bridge assure le lien entre le réseau LORA et le réseau internet standard. Toutes les informations sont finalement transmises à un serveur d'applications sur lequel tourne le backend ainsi que le frontend.
+Les différents capteurs (voir \autoref{elementssysteme}) se chargent de récolter des informations relatifs à leur environnement et les transmettent à une gateway dont le but est de collecter ces informations des différentes sources. Un bridge assure le lien entre le réseau LoRa et le réseau internet standard. Toutes les informations sont finalement transmises à un serveur d'applications sur lequel tourne le backend ainsi que le frontend.
 
 Le schéma ci-dessous illustre cette architecture :
 
@@ -267,11 +267,18 @@ Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que 
 
 \begin{itemize}
 	\item Capteurs \\
+		carte : NUCLEO-F401RE
+		shield : arduino uno click shield
+		capteur : Ambient 2 click
+		LoRa : LoRa click
 
 	\item Gateway \\
+		Raspberry pi 2
+		shield
+		module LoRa
 
-	\item Bridge \\
-		Dans notre cas lora -> mqtt
+	\item \textbf{Bridge} \\
+		Dans notre cas, le bridge fait partie intégrante de la gateway. Sur le schéma dans la \autoref{objectifssysteme}, ce dernier est séparé de la gateway afin de bien représenter le passage de l'utilisation du protocole \textit{LoRa} vers le protocole \textit{MQTT}.
 
 	\item Network Server \\
 
@@ -304,5 +311,9 @@ Les biens principaux à sécuriser sont les données transmises entre les diffé
 %------------------------ Conclusion ---------------------------------------
 \section{Conclusion}
 \label{sec:conclusion}
+
+%------------------------ Sources ------------------------------------------
+\section{Sources}
+\label{sec:sources}
 
 \end{document}
