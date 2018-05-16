@@ -198,6 +198,8 @@
 \clearpage
 \tableofcontents
 \clearpage
+\listoffigures
+\clearpage
 \headsep=20pt
 
 \section{Introduction}
@@ -255,13 +257,20 @@ Les différents capteurs (voir \autoref{elementssysteme}) se chargent de récolt
 
 Le schéma ci-dessous illustre cette architecture :
 
-\begin{center}
+\begin{figure}[h!]
 \includegraphics[width=\textwidth]{architecture}
-\end{center}
+\caption{Schéma de l'architecture du projet}
+\end{figure}
 
 \subsection{Exigences de l'application} % Ce qui est nécessaire pour que l'appli fonctionne + au niveau sécu
 
-L'accès au backend ainsi que l'accès au frontend ne devrait être possible que pour les personnes authorisées et authentifiées à l'aide d'un compte soit utilisateur, soit administrateur.
+Pour la sécurité, nous avons interprété les exigences suivantes :
+
+\begin{itemize}
+\item[•] L'accès au backend ainsi que l'accès au frontend ne doit être possible que pour les personnes autorisées et authentifiées à l'aide d'un compte soit utilisateur, soit administrateur.
+\item[•] Un utilisateur classique ne doit pas pouvoir accéder aux fonctionnalités réservées aux administrateurs.
+\item[•] Les données transmises par les capteurs ne doivent pas être lisibles sur le réseau.
+\end{itemize}
 
 \subsection{Éléments du systèmes}\label{elementssysteme} % Les différents capteurs, gateways, etc...
 
