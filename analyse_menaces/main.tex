@@ -207,7 +207,7 @@ Ce document a pour but la sécurisation du projet élaboré dans le cadre du cou
 Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartissant la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
 
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|l|l|}
 	\hline
 	Groupe & Etudiant \\
 	\hline
@@ -259,13 +259,24 @@ Le schéma ci-dessous illustre cette architecture :
 
 \subsection{Exigences de l'application} % Ce qui est nécessaire pour que l'appli fonctionne + au niveau sécu
 
+L'accès au backend ainsi que l'accès au frontend ne devrait être possible que pour les personnes authorisées et authentifiées à l'aide d'un compte soit utilisateur, soit administrateur.
+
 \subsection{Éléments du systèmes}\label{elementssysteme} % Les différents capteurs, gateways, etc...
 
 Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que software doivent être utilisés. En ce qui concerne le hardware, les composants suivants on été utilisés :
 
 \begin{itemize}
 	\item Capteurs \\
-		bla bla bla
+
+	\item Gateway \\
+
+	\item Bridge \\
+		Dans notre cas lora -> mqtt
+
+	\item Network Server \\
+
+	\item Application Server \\
+
 
 \end{itemize}
 
@@ -273,7 +284,6 @@ Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que 
 \subsection{Biens nécessitants une protections}
 Les biens principaux à sécuriser sont les données transmises entre les différents capteurs et la gateway, ainsi que leur transit vers le serveur d'application et leur utilisation sur ce dernier.
 
-De plus, l'accès au backend ainsi que l'accès au frontend ne devrait être possible que pour les personnes authorisées et authentifiées à l'aide d'un compte.
 
 %------------------------ Périmètre sécurisation ---------------------------
 \subsection{Périmètre de sécurisation}
