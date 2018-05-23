@@ -280,7 +280,7 @@ Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que 
 	\item Capteurs \\
 		carte : NUCLEO-F401RE
 		shield : arduino uno click shield
-		capteur : Ambient 2 click
+		capteur : Ambient 2 click BME680
 		LoRa : LoRa click
 
 	\item Gateway \\
@@ -292,25 +292,31 @@ Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que 
 		Dans notre cas, le bridge fait partie intégrante de la gateway. Sur le schéma dans la \autoref{objectifssysteme}, ce dernier est séparé de la gateway afin de bien représenter le passage de l'utilisation du protocole \textit{LoRa} vers le protocole \textit{MQTT}.
 
 	\item Network Server \\
+		Ce dernier est divisé en trois parties différentes : Routeur, Broker et Network server.
 
-	\item Application Server \\
+	\item Backend\\
+		Le backend est développé en Node.js avec le framework Express. Ce dernier reçoit des informations depuis le network server et traite ces informations avant de pouvoir fournir ces dernières au frontend.
 
+	\item Frontend\\
+		React
+		fetch -> update "a la ajax"
+		mdp local storage
 
 \end{itemize}
 
 %------------------------ Biens a protéger ---------------------------------
 \subsection{Biens nécessitants une protections}
 
-Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet. 
+Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet.
 
-Les biens concernés par cette protection sont les suivants : 
+Les biens concernés par cette protection sont les suivants :
 
 \begin{itemize}
 \item[•] Les données transmises par les capteurs
 \begin{itemize}
 \item Identité
 \item Géo-localisation
-\item Données environnementales 
+\item Données environnementales
 \end{itemize}
 \item[•] Les données utilisateurs
 \begin{itemize}
