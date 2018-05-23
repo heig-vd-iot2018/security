@@ -405,6 +405,57 @@ Probabilité: & Presque nulle \\
 \section{Scénarios d'attaques}
 \label{sec:scenarios}
 
+\subsection{Vol d'informations dans la base de données}
+
+\begin{itemize}
+\item Injection SQL
+\item Conservation des mots de passe dans la DB
+\item Accès direct à la base de données (port 3306 ouvert)
+\item Gestion version, droits utilisateurs, built-in fonctions
+\end{itemize}
+
+\subsection{Contournement d'authentification}
+
+\begin{itemize}
+\item XSS
+\item Brute-force login
+\item CSRF et autres
+\item Contrôle d'accès
+\item Durée de vie de session
+\end{itemize}
+
+\subsection{Récupération passive d'information}
+
+\begin{itemize}
+\item SSL/TLS
+\item Messages d'erreurs
+\end{itemize}
+
+\subsection{Utilisation frauduleuse du matériel}
+
+\begin{itemize}
+\item Protection modification du hardware (signature, tamper-proofing)
+\item Contrôle d'accès physique
+\item Association sécurisée
+\end{itemize}
+
+\subsection{Altération des données}
+
+\begin{itemize}
+\item Chiffrement des trames LoRa
+\item \emph{Man in the middle}
+\item Association sécurisée (capteur - serveur)
+\end{itemize}
+
+\subsection{Altération du fonctionnement de l'application}
+
+\begin{itemize}
+\item Dos
+\item Buffer-overflow
+\item Trafic jamming
+\item Système hébergeur et services pas à jour
+\end{itemize}
+
 %------------------------ Contremesures ------------------------------------
 \section{Contre-mesures}
 
