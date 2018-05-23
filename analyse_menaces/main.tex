@@ -327,11 +327,36 @@ Ces biens doivent être protégés à tous les niveaux et à tous les endroits o
 %------------------------ Périmètre sécurisation ---------------------------
 \subsection{Périmètre de sécurisation}
 
+Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui composent l'architecture mais aussi sur les liens entre eux. Il n'y a aucune zone considérée comme "sûre de base", il faut donc penser à tous les éléments suivants : 
+
+\begin{itemize}
+\item[•] Sécurisation des connexions aux éléments physiques.
+\item[•] Sécurisation des trames à l'intérieur du protocole LoRa.
+\item[•] Sécurisation des accès au back-end et au front-end.
+\item[•] Sécurisation de toutes les communications MQTT.
+\item[•] Sécurisation des éléments hébergeant les différents éléments de l'infrastructure.
+\item[•] Sécurisation et gestion des version pour les technologies, langages et librairies utilisées.
+\end{itemize}
+
 %------------------------ Diagramme des flux -------------------------------
 \subsection{Diagramme des flux}
 
 %------------------------ Sources de menaces -------------------------------
 \section{Sources de menaces}
+
+Différentes sources de menaces existent autour des applications web mais aussi autour du monde de l'\emph{Internet des objets}. Dans le cadre de notre projet nous retrouvons les catégories de menaces décrites ci-dessous : 
+
+\begin{itemize} 
+
+\item[•] \textbf{Étudiants kleptomanes}
+
+\begin{tabular}{lp{13cm}}
+Motivation: & Gagner un capteur, une gateway, une Raspberry Pi gratuite \\
+Cible: & Le matériel \\
+Probabilité: & Haute \\
+\end{tabular}
+
+\end{itemize}
 
 %------------------------ Début scénarios ----------------------------------
 \section{Scénarios d'attaques}
