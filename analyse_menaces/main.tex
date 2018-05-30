@@ -271,39 +271,119 @@ Pour la sécurité, nous avons interprété les exigences suivantes :
 \item[•] Les données transmises par les capteurs ne doivent pas être lisibles sur le réseau.
 \end{itemize}
 
+\newpage
 \subsection{Éléments du systèmes}\label{elementssysteme} % Les différents capteurs, gateways, etc...
 
-Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que software doivent être utilisés. En ce qui concerne le hardware, les composants suivants on été utilisés :
+Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que software doivent être utilisés. Les sous-sections suivantes représentent les différents modules hardware utilisés ainsi que les parties software développées pour ce projet.
+
+\subsubsection{Capteurs}
+La carte STM32 Nucleo (\autoref{nucleo}) offre aux utilisateurs un moyen abordable et flexible d'essayer de nouveaux concepts et de construire des prototypes avec le microcontrôleur STM32, en choisissant parmi les différentes combinaisons de performances, de consommation d'énergie et de fonctionnalités. Pour les cartes compatibles, le SMPS réduit considérablement la consommation d'énergie en mode Run.
+
+Cette carte sera utilisée comme base pour tous les capteurs déployés dans le terrain.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=350px]{nucleo}
+	\caption{NUCLEO-F401RE}
+	\label{nucleo}
+\end{figure}
+
+\newpage
+Le shield utilisé pour ce projet (\autoref{shield}) rend un Arduino compatible avec plus de 75 capteurs de type clic. C'est un shield simple avec deux prises hôte mikroBUS ™ d'un côté et un connecteur Arduino à l'opposé.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=250px]{shield}
+	\caption{Arduino Uno Click Shield}
+	\label{shield}
+\end{figure}
+
+Le module \textit{Environment click} (\autoref{ambient}) mesure la température, l'humidité relative, la pression et les COV (composés organiques volatils gazeux). Le clic intègre le capteur environnemental BME680 de Bosch. Environnement Click est conçu pour fonctionner sur une alimentation de 3,3 V. Il communique avec le microcontrôleur cible via l'interface SPI ou I2C.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=200px]{ambient}
+	\caption{Ambient 2 Click BME680}
+	\label{ambient}
+\end{figure}
+
+\newpage
+LoRaWAN ™ ou Low Area Wide Network est une technologie sans fil développée pour permettre des communications à bas débit sur de longues distances, principalement pour les applications IoT et les capteurs.
+
+Le module émetteur-récepteur LoRa longue portée RN2483 de Microchip (\autoref{lora}) est une solution facile à utiliser et à faible consommation d'énergie pour la transmission de données sans fil à longue portée.
+
+Le module RN2483 a une portée spécifiée> 15 km dans les zones rurales et suburbaines, et> 5 km dans les zones urbaines.
+
+Une pile de protocole LoRaWAN ™ classe A est intégrée (périphériques finaux bidirectionnels), ainsi qu'une interface de commande ASCII accessible via UART. La sensibilité élevée du récepteur peut descendre à -148 dBm.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=150px]{lora}
+	\caption{Lora Click}
+	\label{lora}
+\end{figure}
+
+Ci-dessous, une photo du montage complet du capteur avec tous les modules attachés :
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=200px]{montage}
+	\caption{Montage complet du capteur}
+	\label{}
+\end{figure}
+
+\newpage
+\subsubsection{Gateway}
+
+Le Raspberry Pi 2 Model B est le Raspberry Pi de deuxième génération. Il a remplacé l'original Raspberry Pi 1 Model B+ en février 2015.
+
+Le Raspberry Pi 2 comporte les caractéristiques suivantes :
 
 \begin{itemize}
-	\item Capteurs \\
-		carte : NUCLEO-F401RE
-		shield : arduino uno click shield
-		capteur : Ambient 2 click BME680
-		LoRa : LoRa click
-
-	\item Gateway \\
-		Raspberry pi 2
-		shield
-		module LoRa
-
-	\item \textbf{Bridge} \\
-		Dans notre cas, le bridge fait partie intégrante de la gateway. Sur le schéma dans la \autoref{objectifssysteme}, ce dernier est séparé de la gateway afin de bien représenter le passage de l'utilisation du protocole \textit{LoRa} vers le protocole \textit{MQTT}.
-
-	\item Network Server \\
-		Ce dernier est divisé en trois parties différentes : Routeur, Broker et Network server.
-
-	\item Backend\\
-		Le backend est développé en Node.js avec le framework Express. Ce dernier reçoit des informations depuis le network server et traite ces informations avant de pouvoir fournir ces dernières au frontend.
-
-	\item Frontend\\
-		React
-		fetch -> update "a la ajax"
-		mdp local storage
-
+	\item 900MHz quad-core ARM Cortex-A7 CPU
+	\item 1GB RAM
+	\item 100 Base Ethernet
+	\item 4 Ports USB
+	\item 40 pins GPIO
+	\item Port HDMI
+	\item Jack audio 3.5mm et sortie vidéo composite
+	\item Interface Caméra (CSI)
+	\item Interface d'affichage (DSI)
+	\item Slot pour Micro SD
+	\item VideoCore IV 3D coeur graphique
 \end{itemize}
 
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=350px]{raspberry}
+	\caption{}
+	\label{}
+\end{figure}
+
+Lora + SHield
+
+\newpage
+\subsubsection{Bridge}
+
+Dans notre cas, le bridge fait partie intégrante de la gateway. Sur le schéma dans la \autoref{objectifssysteme}, ce dernier est séparé de la gateway afin de bien représenter le passage de l'utilisation du protocole \textit{LoRa} vers le protocole \textit{MQTT}.
+
+\subsubsection{Network Server}
+
+Ce dernier est divisé en trois parties différentes : Routeur, Broker et Network server.
+
+\subsubsection{Backend}
+
+Le backend est développé en Node.js avec le framework Express. Ce dernier reçoit des informations depuis le network server et traite ces informations avant de pouvoir fournir ces dernières au frontend.
+
+\subsubsection{Frontend}
+
+
+React
+fetch -> update "a la ajax"
+mdp local storage
+
 %------------------------ Biens a protéger ---------------------------------
+\newpage
 \subsection{Biens nécessitants une protections}
 
 Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet.
@@ -332,7 +412,7 @@ Ces biens doivent être protégés à tous les niveaux et à tous les endroits o
 %------------------------ Périmètre sécurisation ---------------------------
 \subsection{Périmètre de sécurisation}
 
-Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui composent l'architecture mais aussi sur les liens entre eux. Il n'y a aucune zone considérée comme "sûre de base", il faut donc penser à tous les éléments suivants : 
+Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui composent l'architecture mais aussi sur les liens entre eux. Il n'y a aucune zone considérée comme "sûre de base", il faut donc penser à tous les éléments suivants :
 
 \begin{itemize}
 \item[•] Sécurisation des connexions aux éléments physiques.
@@ -350,9 +430,9 @@ Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui
 %------------------------ Sources de menaces -------------------------------
 \section{Sources de menaces}
 
-Différentes sources de menaces existent autour des applications web mais aussi autour du monde de l'\emph{Internet des objets}. Dans le cadre de notre projet nous retrouvons les catégories de menaces décrites ci-dessous : 
+Différentes sources de menaces existent autour des applications web mais aussi autour du monde de l'\emph{Internet des objets}. Dans le cadre de notre projet nous retrouvons les catégories de menaces décrites ci-dessous :
 
-\begin{itemize} 
+\begin{itemize}
 
 \item[•] \textbf{Étudiants kleptomanes}
 
