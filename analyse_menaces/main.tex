@@ -174,7 +174,6 @@
 
 %%% SETTINGS %%%
 \setlength\parindent{0pt} 		% Taille de l'indentation
-\headsep =40pt
 \setcounter{tocdepth}{2}
 
 %%% TITLE
@@ -346,6 +345,7 @@ Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui
 
 %------------------------ Diagramme des flux -------------------------------
 \subsection{Diagramme des flux}
+\label{ssec:diagramme}
 
 %------------------------ Sources de menaces -------------------------------
 \section{Sources de menaces}
@@ -402,34 +402,150 @@ Probabilité: & Presque nulle \\
 \end{itemize}
 
 %------------------------ Début scénarios ----------------------------------
-\section{Scénarios d'attaques}
+\section{Scénarios d'attaque}
 \label{sec:scenarios}
+
+Dans les sections ci-dessous, différents scénarios d'attaque sont listés et analysé en détails. Pour chacun d'eux, les failles qui existaient dans le projet ont été listées et analysées. Toutes les contre-mesures appliquée pour les corriger sont détaillées dans la \autoref{sec:contremesures}. Dans la \hyperref[sec:conclusion]{conclusion}, vous retrouverez toutes les listes des failles existantes, absente, corrigées ou exploitables.
+
+Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parlé, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système. 
+
+Chacun des chapitres ci-dessous reprend donc un scénario d'attaque ainsi que les failles qui lui sont associées. Avec chaque scénario, se trouve un résumé des enjeux et la liste des failles ainsi que la manière dont elles peuvent être exploitées.
 
 \subsection{Vol d'informations dans la base de données}
 
-\begin{itemize}
-\item Injection SQL
-\item Conservation des mots de passe dans la DB
-\item Accès direct à la base de données (port 3306 ouvert)
-\item Gestion version, droits utilisateurs, built-in fonctions
-\end{itemize}
+\emph{Ce scénario concerne principalement les groupes front-end et back-end}. 
+\medskip
 
+Comme dans la plupart des applications web et des projets de cette envergure, le groupe \emph{back-end} a mis en place une base de données. Celle-ci est évidemment une cible privilégiée pour les attaquants car elle contient toutes les informations métiers et celles nécessaires à la plateforme web.
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  \\
+\textbf{Impact:} & Haut \\
+\textbf{Source de menace: } & Concurrents, script kiddies, hackers et cybercriminels \\
+\textbf{Motivation:} & La gloire (script kiddies, hackers)
+
+L'argent (cybercriminels)
+
+L'espionnage industriel (concurrents) \\
+\textbf{Cible:} & Données utilisateurs et données métier \\
+\textbf{Contrôles:} & Caché le contenu de la base de données
+
+Sécuriser son accès
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{Injections SQL}
+
+\subsubsection{Lisibilité du contenu sensible}
+
+\subsubsection{Gestion d'accès}
+
+%\begin{itemize}
+%\item Injections SQL
+%\item Conservation des mots de passe dans la DB
+%\item Accès direct à la base de données (port 3306 ouvert)
+%\item Gestion version, droits utilisateurs, built-in fonctions
+%\end{itemize}
+
+\clearpage
 \subsection{Contournement d'authentification}
 
-\begin{itemize}
-\item XSS
-\item Brute-force login
-\item CSRF et autres
-\item Contrôle d'accès
-\item Durée de vie de session
-\end{itemize}
+\emph{Ce scénario concerne principalement les groupes front-end et back-end}. 
+\medskip
+
+Comme précisé dans notre diagramme des flux (\autoref{ssec:diagramme}), nous voyons qu'il existe plusieurs rôles communiquant avec le back-end. 
+
+\begin{enumerate}
+\item Les administrateurs
+\item Les utilisateurs normaux
+\item Les capteurs
+\end{enumerate}
+
+Ceux-ci disposent bien évidemment de possibilités différentes dans le cadre du projet. Évidemment cette séparation des pouvoirs est importante et les cloisonnement des rôles est primordial afin de limiter au maximum les abus. Un utilisateur normal ayant la possibilité d'abuser le système pour devenir administrateur, peut représenter un grand risque pour la plateforme. Tous les autres cas de changement illicite de rôle sont tout aussi risqués et il est nécessaire de mettre en place des protections contre ce genre de motivations.
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  Jean-Kevin, un script kiddy entreprenant, souhaite montré à ses copains ses progrès en informatique. Pour cela, il prend pour cible un projet sur lequel travaille activement un de ces collègues étudiant à la HEIG-VD. Il veut montrer qu'il peut se connecter en tant qu'administrateur sans connaître le
+mot de passe. Il arrive à ses fins en se connectant au compte d'un
+administrateur qui n'était pas protéger par un mot de passe fort et
+peut disposer à sa guise de l'application.\\
+\textbf{Impact:} & Haut \\
+\textbf{Source de menace: } & Script kiddies, hackers \\
+\textbf{Motivation:} & La gloire (script kiddies)
+
+Nuire à l'application et aux utilisateurs (hackers)\\
+\textbf{Cible:} & Données et fonctionnement de l'application \\
+\textbf{Contrôles:} & Protéger la session ouverte contre des vols de sessions externes
+
+Empêcher l'utilisateur de faire malgré lui des actions dans sa session
+
+Protéger correctement les sessions avec des mots de passe forts
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{Cross-site scripting}
+
+\subsubsection{Brute-force du système de login}
+
+\subsubsection{Actions involontaires de l'utilisateur}
+
+\subsubsection{Contrôles d'accès}
+
+\subsubsection{Durée de vie de la session}
+
+%\begin{itemize}
+%\item XSS
+%\item Brute-force login
+%\item CSRF et autres
+%\item Contrôle d'accès
+%\item Durée de vie de session
+%\end{itemize}
 
 \subsection{Récupération passive d'information}
 
-\begin{itemize}
-\item SSL/TLS
-\item Messages d'erreurs
-\end{itemize}
+Souvent, on imagine un hacker pénétrant le système et réalisant des \textbf{actions} sur ce dernier. Ne considérer que ce pan de la sécurité est une grave méprise. Rappelons le triangle suivant : 
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=.6\textwidth]{CAI.png}
+\caption{Principes essentiels de la sécurité informatique}
+\end{center}
+\end{figure}
+
+La confidentialité peut en effet être mise à mal sans même une action directe sur les données. L'interception peut permettre la lecture de ces dernières et si l'information n'est pas obfusquée, on peut récupérer des données sans le consentement des parties et donc mettre à mal la sécurité de l'information. Il est donc primordial de protéger les données dans leur transmission surtout sur des médiums partagés.
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  Les concurrents directs de notre application cherche à obtenir un maximum de données afin de proposer un service plus précis et exhaustif que le notre. Pour arriver à leur fins ils décident d'écouter le trafic généré par nos capteurs à l'intérieur de l'école. Si le trafic n'est pas chiffré, les concurrents peuvent l'utiliser de manière illicite dans leur alternative.\\
+\textbf{Impact:} & Haut \\
+\textbf{Source de menace: } & Hackers, concurrents et cybercriminels \\
+\textbf{Motivation:} & Tremplin vers une plus grosse attaque (hackers)
+
+L'argent (cybercriminels)
+
+Nuire à notre image, voler des données (concurrents)\\
+\textbf{Cible:} & Les données utilisateurs et métier \\
+\textbf{Contrôles:} & Éviter que l'application ne fournisse des données sur elle-même ou sur les utilisateurs
+
+Protéger les communications entre les éléments du système
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{Communications authentifiées et chiffrées (TLS)}
+
+\subsubsection{Chiffrement des trames LoRa}
+
+\subsubsection{Messages d'erreur révélant des informations}
+
+%\begin{itemize}
+%\item SSL/TLS
+%\item Chiffrement des trames LoRa
+%\item Messages d'erreurs
+%\end{itemize}
 
 \subsection{Utilisation frauduleuse du matériel}
 
@@ -442,7 +558,7 @@ Probabilité: & Presque nulle \\
 \subsection{Altération des données}
 
 \begin{itemize}
-\item Chiffrement des trames LoRa
+\item Signature des trames LoRa
 \item \emph{Man in the middle}
 \item Association sécurisée (capteur - serveur)
 \end{itemize}
@@ -458,6 +574,7 @@ Probabilité: & Presque nulle \\
 
 %------------------------ Contremesures ------------------------------------
 \section{Contre-mesures}
+\label{sec:contremesures}
 
 %------------------------ Conclusion ---------------------------------------
 \section{Conclusion}
