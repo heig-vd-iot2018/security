@@ -698,10 +698,18 @@ L'accès aux différents modules (gateway et senseurs) doivent être protégés 
 Il serait envisageable d'enfermer ces modules dans des armoires techniques fermées à clef afin d'en limiter l'accès.
 
 \subsection{fuse protection}
-Ces "protection fuse"
+Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permettent d'éviter que les éléments de la mémoire soient lus, et par conséquent, sont de plus en plus installés dans les chips de nos jours. Cette protection est mise en place, par exemple, en configurant certains bits dans le chip or en fusionnant les lignes de contrôle correspondantes. Ces \textit{fuse} ne sont pas toujours résistants à différentes techniques de manipulation spécifiques. Ces \textit{Fuse bits} qui sont configurés peuvent être remis à 0 par une injection par laser. Une fois que ces \textit{fuse} sont remis à 0, l'analyse du système (lecture des informations) peut continuer. Une contremesure efficace est un maillage de connecteurs qui est placé autour du chip et éléctriquement connecté à ce dernier. Si le chip est ouvert ou attaqué physiquement, ce maillage est détruit ce qui résulte en la destruction du chip, rendant impossible la récupération des informations (voir \autoref{laser}).
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=250px]{laserattack.png}
+	\caption{Protection anti-modification par maillage}
+	\label{laser}
+\end{figure}
 
+source : \url{https://www.aisec.fraunhofer.de/content/dam/aisec/Dokumente/Publikationen/Studien_TechReports/englisch/Whitepaper_ProductProtection.pdf}
 
+\newpage
 
 %------------------------ Conclusion ---------------------------------------
 \section{Conclusion}
