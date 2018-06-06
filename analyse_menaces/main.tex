@@ -14,6 +14,7 @@
 \usepackage{listings}		% package for code listing
 \usepackage{color}			% package to use color
 \usepackage{hyperref}        % pour les liens cliquables (url, etc....)
+\usepackage{pifont}% http://ctan.org/pkg/pifont
 
 %%%  PAGE DIMENSIONS
 \geometry{a4paper} % or letterpaper (US) or a5paper or....
@@ -175,6 +176,8 @@
 %%% SETTINGS %%%
 \setlength\parindent{0pt} 		% Taille de l'indentation
 \setcounter{tocdepth}{2}
+\newcommand{\cmark}{\textcolor{pgreen}{\ding{51}}}%
+\newcommand{\xmark}{\textcolor{pred}{\ding{55}}}%
 
 %%% TITLE
 \title{
@@ -318,7 +321,7 @@ Une pile de protocole LoRaWAN ™ classe A est intégrée (périphériques finau
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=150px]{lora}
-	\caption{Lora Click}
+	\caption{LoRa Click}
 	\label{lora}
 \end{figure}
 
@@ -542,7 +545,7 @@ Quand on parle de failles touchant les bases de données, on pense forcément au
 
 \url{https://www.owasp.org/index.php/Testing_for_NoSQL_injection}
 
-Un courte explication des contre-mesures envisageables pour une telle faille est donnée dans la \autoref{ssec:cm_nosql}
+Un courte explication des contre-mesures envisageables pour une telle faille est donnée dans la \autoref{ssec:cm-injections}
 
 \subsubsection{Lisibilité du contenu sensible}
 
@@ -563,7 +566,7 @@ La configuration d'une base de données est très importante car de nombreux poi
 \item[•] Une notion importante dans une base de données est celle de \emph{built-in function}. En cas de réussite d'une attaque NoSQL, si celle-ci sont laissées activées par défaut, le pivot et la compromission complète de la base de données devient facile pour un attaquant même inexpérimenté.
 \end{itemize}
 
-Les contre-mesure de la \autoref{ssec:cm_configDB} expliquent quels modèles utiliser pour la configuration d'une telle base de données.
+Les contre-mesure de la \autoref{ssec:cm-configdb} expliquent quels modèles utiliser pour la configuration d'une telle base de données.
 
 %\begin{itemize}
 %\item Injections SQL
@@ -622,7 +625,7 @@ Voici le lien officiel décrivant donc le fonctionnement de telles attaques :
 Une autre possibilité pour réaliser ce scénario est la brute force pure et simple du système de login. Sans contrôle particulier, un utilisateur possédant un bon dictionnaire de nom d'utilisateurs et de mots de
 passe peut tenter de forcer le login de l'application et donc d'accéder directement à une session qui n'est pas la sienne.
 
-\subsubsection{Actions involontaires de l'utilisateur}
+\subsubsection{\emph{Cross-site request forgery}}
 
 Les attaques CSRF \footnote{Petit rappel sur le CSRF : \url{https://en.wikipedia.org/wiki/Cross-site_request_forgery}} sont souvent ignorée dans les applications web et pourtant, elles peuvent avoir des conséquences importantes au niveau de la sécurité. Une faille CSRF est difficile a
 mettre en évidence et à exploiter, mais si aucune protection n'a explicitement été mise en place, on peut supposer que l'application en question sera vulnérable au CSRF.
@@ -640,7 +643,7 @@ Rappelons ici que notre application possède quatre vues en tout :
 \item[•] Les capteurs
 \end{itemize}
 
-Le contrôle d'accès doit bien évidemment \textbf{cloisonner} chacun des rôles à sa propre vue même si les implications ne semblent pas importantes. Pour cela, la \autoref{ssec:cm_controleacces} de contremesures décrit un système qui peut être implémenté pour un contrôle d'accès correct avec une structure comme la notre.
+Le contrôle d'accès doit bien évidemment \textbf{cloisonner} chacun des rôles à sa propre vue même si les implications ne semblent pas importantes. Pour cela, la \autoref{ssec:cm-controleacces} de contremesures décrit un système qui peut être implémenté pour un contrôle d'accès correct avec une structure comme la notre.
 
 \subsubsection{Durée de vie de la session}
 
@@ -694,7 +697,7 @@ Protéger les communications entre les éléments du système
 
 \subsubsection{Communications en clair}
 
-Le wifi est une chose fantastique, mais malheureusement les données passent dans l'air et donc tout le monde peut les "voir". Cela implique évidemment que toutes les données passent en clair sur le réseau mots de passe et données compris. C'est évidemment pas sécurisé et la confidentialité des données est fortement impactée. Le compromis idéal est la mise en place d'un tunnel TLS pour toutes les communications HTTP de notre projet. Plus de détails sur la mise en place d'un tel système sont donnés dans la \autoref{ssec:cm_tls}.
+Le wifi est une chose fantastique, mais malheureusement les données passent dans l'air et donc tout le monde peut les "voir". Cela implique évidemment que toutes les données passent en clair sur le réseau mots de passe et données compris. C'est évidemment pas sécurisé et la confidentialité des données est fortement impactée. Le compromis idéal est la mise en place d'un tunnel TLS pour toutes les communications HTTP de notre projet. Plus de détails sur la mise en place d'un tel système sont donnés dans la \autoref{ssec:cm-tls}.
 
 Le protocole HTTP classique n'est pas le seul utilisé dans notre projet. Nous utilisons aussi le protocole LoRa qu'il faut donc aussi rendre illisible pour les gens capturant le réseau.
 
@@ -741,7 +744,7 @@ Pourtant c'est un point qu'il est important de ne pas négliger dans un projet p
 
 \subsubsection{Composants réinscriptibles}
 
-Au cas où le matériel aurait été subtilisé malgré les protections mises en place au point précédent. Il faut éviter au maximum que le profiteur ait envie de recommencer. Si celui-ci vole du matériel et peut être en mesure de l'utiliser, ça peut vivement l'encourager à recommencer. Alors que si des protections sont mises en place, le risque est un peu mitigé. Dans les contre-mesures de la \autoref{ssec:cm_fuse}, une méthode très connue des développeurs hardware est présentée pour protéger les matériaux contre un écrasement de leur contenu actuel.
+Au cas où le matériel aurait été subtilisé malgré les protections mises en place au point précédent. Il faut éviter au maximum que le profiteur ait envie de recommencer. Si celui-ci vole du matériel et peut être en mesure de l'utiliser, ça peut vivement l'encourager à recommencer. Alors que si des protections sont mises en place, le risque est un peu mitigé. Dans les contre-mesures de la \autoref{ssec:cm-fuse}, une méthode très connue des développeurs hardware est présentée pour protéger les matériaux contre un écrasement de leur contenu actuel.
 \clearpage
 
 %\begin{itemize}
@@ -781,7 +784,7 @@ Les attaques de types \emph{man in the middle} (MITM) sont très connues. Les at
 
 Pour limiter ce type d'attaque, on utilise les contrôles d'intégrité mis sur les trames. Ceux-ci reviennent à signer les messages avec une clé privée afin que ceux-ci ne puissent être modifié par un MITM sans que cela ne se répercute sur la signature. Dans notre cas, il conviendra de protéger les communications HTTP (avec TLS par exemple), et les communications LoRa. 
 
-Plus de détails sur ces contre-mesures sont documentée dans les sections \ref{ssec:cm_tls} et \ref{ssec:cm_signlora}.
+Plus de détails sur ces contre-mesures sont documentée dans les sections \ref{ssec:cm-tls} et \ref{ssec:cm-mitm}.
 
 \subsubsection{Association des capteurs à la passerelle}
 
@@ -822,7 +825,7 @@ Contrôle des entrées utilisateurs
 
 Tous les systèmes informatiques quels qu'ils soient sont vulnérables aux dénis de service. Le principe reste très simple : envoyer trop de requêtes / demandes / trames à une entité pour que celle-ci devienne incapable de toutes les traiter et soit ralentie voir arrêtée. Le problème principal du DDoS (\emph{Distributed Denial of Service}), est qu'il n'est pas possible à endiguer entièrement même avec toutes les mesures du monde. Une menace disposant de moyen techniques et financiers illimités sera toujours capable de créer un dénis de service sur une cible.
 
-Néanmoins nous présentons dans la \autoref{ssec:cm_ddos} plusieurs moyen de mitiger un peu les risques. Mais il convient de garder à l'esprit que pour le dénis de service la protection ultime n'existe pas.
+Néanmoins nous présentons dans la \autoref{ssec:cm-ddos} plusieurs moyen de mitiger un peu les risques. Mais il convient de garder à l'esprit que pour le dénis de service la protection ultime n'existe pas.
 
 \subsubsection{Brouillage du réseau}
 
@@ -836,42 +839,244 @@ Ces attaque sont les plus dangereuses car elles donnent un accès complet à tou
 
 \subsubsection{Ralentissement volontaire de la base de données}
 
-Il ne faut jamais faire confiance à un utilisateur, jamais. Toutes les entrées doivent être contrôlées lors du développement d'un tel projet. Que ce soit pour éviter les attaques de type injection noSQL ou XSS mais aussi pour éviter une surcharge de données pouvant mener à un ralentissement d'une base de données. 
+Il ne faut jamais faire confiance à un utilisateur, jamais. Toutes les entrées doivent être contrôlées lors du développement d'un tel projet. Que ce soit pour éviter les attaques de type injection NoSQL ou XSS mais aussi pour éviter une surcharge de données pouvant mener à un ralentissement d'une base de données. 
 
-Par exemple un champ beaucoup trop grand ~1'000'000 de caractères représente environ 1 MB de données à stocker dans une base de données. Si l'abus est répété, on arrive vite à un volume de données important qui peut ralentir considérablement une base de données (même noSQL !). 
+Par exemple un champ beaucoup trop grand ~1'000'000 de caractères représente environ 1 MB de données à stocker dans une base de données. Si l'abus est répété, on arrive vite à un volume de données important qui peut ralentir considérablement une base de données (même NoSQL !). 
 \clearpage
 
 %------------------------ Contremesures ------------------------------------
 \section{Contre-mesures}
 \label{sec:contremesures}
-\subsection{Integrité des trames}
-Afin de garantir l'intégrité des données envoyées sur le réseau LoRa, un contrôle d'intégrité de type CRC32 peut être effectué à l'instar du type de contrôle effectué lors de communications Wifi. Cette somme de contrôle serait mise à la suite des données envoyées et le tout pourrait être chiffré, par exemple avec AES dont la clé serait connue du capteur et de la gateway.
 
-Une fois la trame reçue par la gateway, ou par le capteur, elle serait déchiffrée et le CRC32 contrôlé afin d'assurer l'intégrité de la trame reçue.
+Comme nous avons dans ce projet beaucoup de scénarios, de failles et donc de contre-mesures, nous n'allons donc pas les développer en détails ici. Néanmoins, pour chacune d'entre elle un descriptif plus ou moins fourni de la technique est donné. Celui-ci est accompagné de liens \footnote{En anglais, car la bonne documentation est en anglais} vers des solutions existantes pour une architecture proche de notre système.
 
-\subsection{Association sécurisée lora}
+Il est à noter que les contre-mesures doivent, dans la mesure du possible, utiliser des librairies existantes et considérées comme sécurisées et à jour. Les solutions \emph{"home made"} sont à éviter car généralement elles vont souffrir de manquements ou d'oublis.
 
-\subsection{DDoS}
-Afin d'éviter toute attaque du type déni de service, il serait envisageable d'effectuer un contrôle sur les ip se connectant au backend par exemple afin de limiter ou bloquer l'accès de cette dernière au backend si un certain seuil de requêtes par secondes ou minutes est atteint. De plus, il serait possible de mettre les différents serveurs (network server) en liste blanche. Ceci permettrait que seul les gateway et serveurs authorisés puissent se connecter au backend pour pousser des donnés, mitigeant ainsi le risque de DDoS.
+\subsection{Injection NoSQL}
+\label{ssec:cm-injections}
 
-En ce qui concerne le frontend, seul un utilisateur authentifié peut accèder aux données. On pourrait filtrer les requêtes ICMP afin d'éviter une attaque de type \textit{smurt attack}. Afin d'éviter une attaque de type \textit{SYN Flood}, on pourrait limiter dans le temps le nombre de requêtes effectuées par un certain client authentifié.
+Pour protéger notre base de données de ce type d'attaque, il faudrait nettoyer les entrées de toutes lignes de codes exécutables. Pour ce faire, il faudrait utiliser la librairie suivante : mongo-sanitize. 
 
-Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permettre un \textit{autoscaling} lorsque le serveur est surchargé. Toutefois, cette solution serait inefficace si l'attaque par DDoS est de grande envergure.
+Le code ci-dessous donne un example de quand utiliser cette librairie (source \href{https://www.npmjs.com/package/mongo-sanitize}{NPM}):
+\vspace{2mm}
+\begin{lstlisting}[style=Java]
+var sanitize = require('mongo-sanitize'); 
 
-\subsection{Buffer Overflow}
+var name = sanitize(req.params.name); 
+var password = sanitize(req.params.password);  
 
-\subsection{systèmes pas à jour}
-Si l'infrastructure est hébergée sur un fournisseur IaaS, les mises à jour du système sont à la charge du développeur. Si un service PaaS est utilisé, ces mises à jour sont à la charge du fournisseur de services.
+User.findOne({ "name" : name, "password" : password }, callback);  
+\end{lstlisting}
 
-Mettre à jour les applications utilisées ainsi que les systèmes d'exploitations doivent être régulièrement mis à jour afin de contrer les vulnérabilités découvertes et patchées.
+\medskip
+\textbf{Librairies et documentation :}
 
-\subsection{Protection physique}
-L'accès aux différents modules (gateway et senseurs) doivent être protégés afin d'éviter à une tierce partie d'accèder au firmware ou programmes qui tournent sur ces derniers. En effet, si des clés de chiffrement sont disponible sur ces modules afin de chiffrer les trames envoyées entre les senseurs et les gateway, il faut s'assurer que l'accès à cette information est protégé.
+\begin{itemize}
+\item[•] \href{https://www.npmjs.com/package/mongo-sanitize}{Outil -- Librairie NPM de mongo-sanitize}
+\item[•] \href{https://zanon.io/posts/nosql-injection-in-mongodb}{Article -- Injection NoSQL dans Node avec MongoDB}
+\item[•] \href{https://stackoverflow.com/questions/13436467/javascript-nosql-injection-prevention-in-mongodb}{Stackoverflow -- Injection prevention in MongoDB}
+\item[•] \href{https://www.owasp.org/index.php/Testing_for_NoSQL_injection}{OWASP -- Testing for NoSQL injection}
+\end{itemize}
 
-Il serait envisageable d'enfermer ces modules dans des armoires techniques fermées à clef afin d'en limiter l'accès.
+\subsection{Lisibilité du contenu sensible}
+\label{ssec:cm-hash}
 
-\subsection{fuse protection}
-Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permettent d'éviter que les éléments de la mémoire soient lus, et par conséquent, sont de plus en plus installés dans les chips de nos jours. Cette protection est mise en place, par exemple, en configurant certains bits dans le chip or en fusionnant les lignes de contrôle correspondantes. Ces \textit{fuse} ne sont pas toujours résistants à différentes techniques de manipulation spécifiques. Ces \textit{Fuse bits} qui sont configurés peuvent être remis à 0 par une injection par laser. Une fois que ces \textit{fuse} sont remis à 0, l'analyse du système (lecture des informations) peut continuer. Une contremesure efficace est un maillage de connecteurs qui est placé autour du chip et éléctriquement connecté à ce dernier. Si le chip est ouvert ou attaqué physiquement, ce maillage est détruit ce qui résulte en la destruction du chip, rendant impossible la récupération des informations (voir \autoref{laser}).
+Afin de protéger les mots de passe des utilisateurs même en cas de vol de la base de données, il est indispensable de hasher les mots de passe avec des méthodes de hachages qualifiés de surs comme SHA256 ou SHA3. Ainsi même en ayant les tous les hashs des utilisateurs, l'attaquant n'a pas les mots de passe des utilisateurs et ne peut donc pas utiliser leurs comptes. 
+
+Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter du sel à notre application. Le sel consiste à concaténer au mot de passe de l'utilisateur une chaine de caractère aléatoire afin que deux mots de passe identiques ne donnent pas le même hash. Cette chaine de caractère est stockée dans la base de données. Le sel est une excellente protection contre les attaques par dictionnaire car il faut brute forcer les mots de passe un par un.
+\clearpage
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet}{OWASP -- Password storage cheatsheet}
+\item[•] \href{https://stackoverflow.com/questions/6951563/storing-passwords-with-node-js-and-mongodb}{Stackoverflow -- Storing passwords with Node.js and MongoDB}
+\item[•] \href{https://github.com/kelektiv/node.bcrypt.js}{Outil -- Bcrypt pour Node.js}
+\item[•] \href{https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt}{Article -- Node et bycrypt}
+\end{itemize}
+ 
+\subsection{Configuration de la base de données}
+\label{ssec:cm-configdb}
+
+Afin de sécuriser notre base de données NoSQL, l'idéal serait de définir les rôles selon un modèle RBAC (Role based Access Control). 
+
+Ainsi chaque compte de la base de données, ne donnera accès qu'aux fonctions dont a besoin le service ou l'utilisateur. Il faut aussi logger les accès à la base de données afin de pouvoir détecter d'éventuels comportements suspects ou bugs. De plus pour assurer une bonne disponibilité de cette BD, il faudrait la monitorer pour pouvoir détecter les problèmes en amont. 
+
+Si la tolérance au down time pour notre application venait à devenir critique, nous devrions envisager de mettre en place un système de base de données redondant. Il serait aussi nécessaire de définir une politique de backup afin de pouvoir se prémunir contre une perte ou une altération de nos données.  
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://docs.mongodb.com/manual/core/authorization/}{Documentation officielle -- RBAC dans MongoDB}
+\item[•] \href{https://docs.mongodb.com/manual/tutorial/manage-users-and-roles/}{Documentation officielle -- Gestion des utilisateurs et des rôles}
+\item[•] \href{https://docs.mongodb.com/manual/administration/security-checklist/}{Documentation officielle -- MongoDB security checklist}
+\end{itemize}
+
+\subsection{\emph{Cross-site scripting}}
+\label{ssec:cm-xss}
+
+Pour protéger notre application contre les attaques de type xss, il faudrait passer les entrées fournit par l'utilisateur dans un filtre choisi afin d'échapper correctement tout code malveillant. 
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet}{OWASP -- XSS prevention cheat sheet}
+\item[•] \href{http://scottksmith.com/blog/2015/06/22/secure-node-apps-against-owasp-top-10-cross-site-scripting/}{Article -- XSS et applications Node.js}
+\item[•] \href{https://www.npmjs.com/package/xss}{Outil -- Librairie NPM de xss nettoyage des inputs}
+\item[•] \href{https://www.npmjs.com/package/secure-filters}{Outil -- Librairie NPM de secure-filters nettoyage des inputs}
+\end{itemize}
+
+Plein d'autres librairies existantes et correctes sont disponibles dans Node.js !
+\clearpage
+
+\subsection{Brute-force du système de login}
+\label{ssec:cm-bruteforce}
+
+Afin de se protéger contre les attaques de type brute force ou envoi massif de formulaire, il faudrait mettre des captchas (comme les reCAPTCHAS de Google) afin de s'assurer que c'est bien un humain qui effectue l'action. Ainsi on rendrait impossible les attaques de type brute force effectuées à l'aide de script. De plus, le reCAPTCHAS de Google est vraiment simple d'utilisation et gère de manière automatique une blacklist des adresses IP qui ont tenté de brute-forcer un formulaire. 
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.google.com/recaptcha/intro/v3beta.html}{Documentation officielle -- Google reCAPTCHA}
+\item[•] \href{https://codeforgeek.com/2016/03/google-recaptcha-node-js-tutorial/}{Turoriel -- Google reCAPTCHA avec Node.js}
+\item[•] \href{https://www.npmjs.com/package/express-recaptcha}{Outil -- Librairie NPM de express-recaptcha}
+\item[•] \href{https://www.npmjs.com/package/recaptcha2}{Outil -- Librairie NPM de recaptcha2}
+\end{itemize}
+
+\subsection{\emph{Cross-site request forgery}}
+\label{ssec:cm-csrf}
+
+La contre-mesures la plus répandu pour se protéger des failles web de type CSRF est l'authentification par token. Lorsqu'une requête est soumise au serveur, un header supplémentaire contenant le token est ajouté. Le token est vérifié avant que de réaliser l'action. La génération du token est une étape critique. Il est nécessaire qu'il soit généré de manière aléatoire, n'utiliser que des librairies standards.
+
+Il existe d'autres contre-mesures additionnelles, notamment ajouter des étapes de validation (confirmation, captcha) lors des actions jugées critiques. Optionnellement, il est possible de vérifier depuis quelle page la requête a été effectuée. Bien qu'une contre-mesure supplémentaire ne soit pas de refus, il faut savoir qu'il est possible de forger une requête et donc de modifier cette valeur.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+Voir la documentation de la contre-mesure contrôle d'accès dans la \autoref{ssec:cm-controleacces}.
+
+\subsection{Contrôle d'accès}
+\label{ssec:cm-controleacces}
+
+Il est légitime de contrôler l'accès aux différentes parties de l'application afin de s'assurer que l'utilisateur possède les autorisations nécessaires pour accéder à l'information. Le contrôle d'accès prend la forme d'une page de login. Une fois authentifié, l'utilisateur doit recevoir en retour un \emph{Json Web Token} par exemple. Il s'agit d'une technologie très utilisée dans les back-end Javascript. Ce token est envoyé à chaque requête de l'utilisateur. Il contient diverses informations :
+\begin{itemize}
+\item[•] Rôle
+\item[•] Date d'émission
+\item[•] Signature
+\item[•] Émetteur
+\item[•] Etc...
+\end{itemize}
+\medskip
+
+Si le token est valide \textbf{(vérification de la signature)} et n'est pas blacklisté dans une base de donnée, alors la session reste active. Ce type de token empêche à un attaquant de déterminer l'identifiant de session de quelqu'un et donc d'usurper son identité.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://jwt.io/}{Documentation officielle -- Json Web Token}
+\item[•] \href{https://www.npmjs.com/package/jsonwebtoken}{Outil -- Librairie NPM de jsonwebtoken}
+\item[•] \href{https://tools.ietf.org/html/rfc7519}{Norme -- Json Web Token}
+\end{itemize}
+
+\subsection{Durée de vie de la session}
+\label{ssec:cm-dureeviesession}
+
+La durée de vie d'une session dépend des informations et des actions dont l'utilisateur a besoin. Il est important de trouver un juste milieu; si la durée de vie est trop courte, alors l'utilisateur sera obligé de s'authentifier plusieurs fois par jour. Dans le cas contraire, l'inattention d'un utilisateur quittant son bureau sans verrouillé sa session, permettrait à un collègue d'accéder à son compte pendant son absence. De plus, les actions et les données dont un utilisateur standard ou d'un administrateur a accès sont différentes. C'est pourquoi une distinction entre ces 2 types de profils sont nécessaires.
+
+\begin{description}
+\item[Utilisateur] 10 jours
+\item[Administrateur] 1 jour
+\end{description}
+
+En plus de cette distinction et de cette durée de vie, il convient d'avoir une base de données permettant de stocker les tokens correspondant à une session black-listée ou bannie. Pour cela, une simple collection MongoDB de tokens suffit amplement si on pense à la vérifier après chaque vérification de JWT.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Life_Cycle}{OWASP -- Session management cheat sheet}
+\item[•] Toute la documentation de la contre-mesure \ref{ssec:cm-controleacces} sur les Json Web Token.
+\end{itemize}
+
+\subsection{Communication en clair}
+\label{ssec:cm-tls}
+
+\subsubsection{LoRa}
+
+Pour des questions de confidentialité des données, les trames ne peuvent pas circuler en clair sur le réseau. Il suffirait à un attaquant de sniffer le réseau pour avoir accès aux informations. Cette contre-mesure est implémentée de base par LoRaWAN.
+
+\subsubsection{Certificat SSL pour serveur ngnix}
+
+Afin de chiffrer les communications entre nos clients et notre serveur web ngnix.
+Pour cela, nous avons créé un \texttt{dockerCompose} qui nous permet de créer un serveur ngnix proxy, un serveur ngnix et un serveur \emph{ngnix let's encrypt compagnion}.
+\medskip
+
+\begin{itemize}
+
+\item[•] \textbf{Ngnix Proxy}
+\vspace{1mm}
+
+Notre serveur proxy ngnix aura pour tâche de centraliser toutes les requêtes HTTPS et de les rediriger vers les serveurs adéquats (dans notre cas, vu que nous avons qu'un seul service web toutes les requêtes seront redirigées vers notre service ngnix).
+Vu que notre proxy est accessible directement depuis internet, il possède un certificat SSL délivré par Let's Encrypt.
+Ce certificat est renouvelé à intervalle régulier par le container \emph{ngnix let's encrypt compagnion}
+\vspace{3mm}
+
+\item[•] \textbf{\emph{Ngnix let's encrypt compagnion}}
+\vspace{1mm}
+
+Ce container se réveille périodiquement (une fois par heure) et vérifie que le certificat du proxy ngnix est toujours valable et qu'il n'expire pas dans moins de 30 jours. 
+Si le certificat est valide et que sa durée de validité est supérieure à 30 jours, il se rendort pour une heure.
+Dans le cas où le certificat serait absent, invalide ou expirerait dans moins de 30 jours, le container en régénère un et le place dans le dossier certificats du proxy ngnix et se rendort pour une heure.
+\vspace{3mm}
+
+\item[•] \textbf{Serveur ngnix}
+\vspace{1mm}
+
+Ce container est notre serveur web, il reçoit les requêtes des clients que lui transmet le proxy et lui renvoie le contenu demandé par les clients.
+\end{itemize}
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://meta.discourse.org/t/help-multisite-with-letsencrypt-nginx-proxy-companion/88192}{Article -- Gestion multi-site avec nginx et let's encrypt}
+\item[•] \href{https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion}{Outil -- Image Docker Hub \texttt{JrCs/docker-letsencrypt-nginx-proxy-companion}}
+\item[•] \href{https://github.com/jwilder/nginx-proxy}{Outil -- Image Docker Hub \texttt{jwilder/nginx-proxy}}
+\item[•] \href{https://hub.docker.com/_/nginx/}{Outil -- Image Docker Hub \texttt{nginx}}
+\item[•] \href{https://labs.mwrinfosecurity.com/assets/BlogFiles/mwri-LoRa-security-guide-1.2-2016-03-22.pdf}{Guide -- LoRa security}
+\end{itemize}
+
+\subsection{Messages d'erreur révélant des informations}
+\label{ssec:cm-messageserreurs}
+
+Nos messages d'erreur sur notre version en production doivent donner le minimum d'informations. Par exemple en cas d'erreur de notre serveur ngnix celui-ci doit seulement donner le numéro et le type d'erreur. En aucun cas, il ne doit donner la cause de cette erreur car le message indiquant la cause pourrait divulguer certaines informations utiles à un attaquant. De même, notre serveur ngnix ne devra jamais fournir son numéro de build dans un message d'erreur car il suffirait à un attaquant de chercher sur internet les failles pour la version de notre serveur. 
+
+Un autre endroit où les messages d'erreur doivent être le plus vague possible est le login. Le message d'erreur en cas de saisie de mauvais identifiants ne doit pas dire si le compte existe ou ce qui est faux entre le nom d'utilisateur et le mot de passe. Il devra juste donner un message générique comme celui-ci: "La connexion a échoué. Veuillez vérifier vos identifiants".
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/Error_Handling}{OWASP -- Error handling}
+\item[•] \href{https://cwe.mitre.org/data/definitions/209.html}{MITRE-CWE 209 -- Information exposure through an error message}
+\end{itemize}
+
+\subsection{Accès non-contrôlé au hardware}
+\label{ssec:cm-acceshardware}
+
+L'accès aux différents modules (gateway et capteurs) doivent être protégés afin d'éviter à une tierce partie d'accéder au firmware ou programmes qui tournent sur ces derniers. En effet, si des clés de chiffrement sont disponible sur ces modules afin de chiffrer les trames envoyées entre les senseurs et les gateway, il faut s'assurer que l'accès à cette information est protégé.
+
+Il serait envisageable comme première mesure d'enfermer ces modules dans des armoires techniques fermées à clé afin d'en limiter l'accès.
+
+\subsection{Composants réinscriptibles}
+\label{ssec:cm-fuse}
+
+Afin de garantir la persistance du hardware en cas de vol, les constructeur ont mis en place un système appelé "fuse protection". Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permettent d'éviter que les éléments de la mémoire soient lus, et par conséquent, sont de plus en plus installés dans les chips de nos jours. Cette protection est mise en place, par exemple, en configurant certains bits dans le chip or en fusionnant les lignes de contrôle correspondantes. Ces \textit{fuse} ne sont pas toujours résistants à différentes techniques de manipulation spécifiques. Ces \textit{Fuse bits} qui sont configurés peuvent être remis à 0 par une injection par laser. Une fois que ces \textit{fuse} sont remis à 0, l'analyse du système (lecture des informations) peut continuer. Une contremesure efficace est un maillage de connecteurs qui est placé autour du chip et électriquement connecté à ce dernier. Si le chip est ouvert ou attaqué physiquement, ce maillage est détruit ce qui résulte en la destruction du chip, rendant impossible la récupération des informations (voir \autoref{laser}).
 
 \begin{figure}[!h]
 	\centering
@@ -880,13 +1085,128 @@ Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permetten
 	\label{laser}
 \end{figure}
 
-source : \url{https://www.aisec.fraunhofer.de/content/dam/aisec/Dokumente/Publikationen/Studien_TechReports/englisch/Whitepaper_ProductProtection.pdf}
+\medskip
+\textbf{Librairies et documentation :}
 
-\newpage
+\begin{itemize}
+\item[•] \href{https://www.aisec.fraunhofer.de/content/dam/aisec/Dokumente/Publikationen/Studien_TechReports/englisch/Whitepaper_ProductProtection.pdf}{Article -- Protecting embedded systems against product piracy}
+\end{itemize}
 
+\subsection{\emph{Man in the middle}}
+\label{ssec:cm-mitm}
+
+Afin de garantir l'intégrité des données envoyées sur le réseau LoRa, un contrôle d'intégrité de type CRC32 peut être effectué à l'instar du type de contrôle effectué lors de communications Wifi. Cette somme de contrôle serait mise à la suite des données envoyées et le tout pourrait être chiffré, par exemple avec AES dont la clé serait connue du capteur et de la gateway.
+
+Une fois la trame reçue par la gateway, ou par le capteur, elle serait déchiffrée et le CRC32 contrôlé afin d'assurer l'intégrité de la trame reçue.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/Man-in-the-middle_attack}{OWASP -- Man in the middle attack}
+\item[•] Toute la documentation de la contre-mesure \ref{ssec:cm-tls} sur le chiffrement des communications et les tunnels TLS.
+\end{itemize}
+
+\subsection{Association des capteurs à la passerelle}
+\label{ssec:cm-association}
+
+\subsection{Attaque par déni de service}
+\label{ssec:cm-ddos}
+
+Afin d'éviter toute attaque du type déni de service, il serait envisageable d'effectuer un contrôle sur les ip se connectant au backend par exemple afin de limiter ou bloquer l'accès de cette dernière au backend si un certain seuil de requêtes par secondes ou minutes est atteint. De plus, il serait possible de mettre les différents serveurs (network server) en liste blanche. Ceci permettrait que seul les gateway et serveurs authorisés puissent se connecter au backend pour pousser des donnés, mitigeant ainsi le risque de DDoS.
+
+En ce qui concerne le frontend, seul un utilisateur authentifié peut accéder aux données. On pourrait filtrer les requêtes ICMP afin d'éviter une attaque de type \textit{smurf attack}. Afin d'éviter une attaque de type \textit{SYN Flood}, on pourrait limiter dans le temps le nombre de requêtes effectuées par un certain client authentifié.
+
+Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permettre un \textit{autoscaling} lorsque le serveur est surchargé. Toutefois, cette solution serait inefficace si l'attaque par DDoS est de grande envergure.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html}{Documentation officielle -- AWS auto-scaling group}
+\item[•] \href{https://vpn-services.bestreviews.net/vpn-provide-ddos-protection/}{Article -- VPN provide DDoS protection}
+\item[•] \href{https://fr.wikipedia.org/wiki/Mitigation_de_DDoS}{Wikipedia -- Mitigation de DDos}
+\end{itemize}
+
+\subsection{Intrusion dans les systèmes hébergeurs}
+\label{ssec:cm-intrusion}
+
+Si l'infrastructure est hébergée sur un fournisseur IaaS, les mises à jour du système sont à la charge du développeur. Si un service PaaS est utilisé, ces mises à jour sont à la charge du fournisseur de services.
+
+Mettre à jour les applications utilisées ainsi que les systèmes d'exploitations doivent être régulièrement mis à jour afin de contrer les vulnérabilités découvertes et corrigées.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{http://techgenix.com/risk-running-obsolete-software-part1/}{Article -- Risk running obsolete software}
+\end{itemize}
+
+\subsection{Ralentissement volontaire de la base de données}
+\label{ssec:cm-oversizing}
+
+\clearpage
 %------------------------ Conclusion ---------------------------------------
-\section{Conclusion}
+\section{Conclusion sécuritaire}
 \label{sec:conclusion}
+
+Pour conclure. voici un court résumé des différentes vulnérabilités que nous avons rencontrées lors de ce projet de sécurisation accompagnées de quelques remarques.
+\vspace{5mm}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|p{9cm}|c|}
+\hline
+\textbf{Vulnérabilité} & \textbf{Correction ?} \\
+\hline
+Injection NoSQL & \cmark \\
+\hline
+Lisibilité du contenu sensible & \cmark \\
+\hline
+Configuration de la base de données & ? \\
+\hline
+\emph{Cross-site scripting} & ? \\
+\hline
+Brute-force du système de login & \xmark \\
+\hline
+\emph{Cross-site request forgery} & ? \\
+\hline
+Contrôle d'accès & \cmark \\
+\hline
+Durée de vie de la session & \cmark \\
+\hline
+Communication en clair & \cmark \\
+\hline
+Messages d'erreur révélant des informations & \cmark \\
+\hline
+Accès non-contrôlé au hardware & \xmark \\
+\hline
+Composants réinscriptibles & \xmark \\
+\hline
+\emph{Man in the middle} & \cmark \\
+\hline
+Association des capteurs à la passerelle & \cmark \\
+\hline
+Attaque par déni de service & \xmark \\
+\hline
+Intrusion dans les systèmes hébergeurs & \cmark \\
+\hline
+Ralentissement volontaire de la base de données & \cmark \\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\vspace{5mm}
+
+Et plein d'autres... Bien évidemment, certaines manquent surement à l'appel mais les grosses ayant un gros impacts sont belles et bien listées ici. 
+
+\clearpage
+\subsection*{Remarques diverses}
+
+\begin{itemize}
+\item[•] Durant ce projet, nous avons beaucoup travaillé sur la recherche de scénarios et sur la manière de les contrer. Parfois, les contre-mesures n'ont pas été appliquées mais les détails concernant leur mise en place sont données.
+\item[•] D'autres vulnérabilités que nous ignorons se trouvent surement encore dans le projet. La sécurité est quelque chose de complexe et ne peut jamais être parfaite. Nous avons donné les pistes pour sécuriser l'application au mieux, avec nos connaissances et le temps à notre disposition.
+\item[•] Ce document n'est bien évidemment pas là pour pointer du doigt les failles encore existantes. Il est là pour fournir toutes les informations nécessaires afin d'améliorer au maximum la sécurité de ce jeune projet. 
+\end{itemize}
+
 
 %------------------------ Sources ------------------------------------------
 \section{Sources}
