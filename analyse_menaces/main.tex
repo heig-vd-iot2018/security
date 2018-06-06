@@ -422,10 +422,17 @@ Dans ce projet, la sécurité doit être analysée sur chacun des éléments qui
 \item[•] Sécurisation des éléments hébergeant les différents éléments de l'infrastructure.
 \item[•] Sécurisation et gestion des version pour les technologies, langages et librairies utilisées.
 \end{itemize}
+\clearpage
 
 %------------------------ Diagramme des flux -------------------------------
 \subsection{Diagramme des flux}
 \label{ssec:diagramme}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[angle=90, width=.85\textwidth]{diagramme_flux}
+\caption{Diagramme des flux}
+\end{figure}
 
 %------------------------ Sources de menaces -------------------------------
 \clearpage
@@ -486,7 +493,7 @@ Probabilité: & Presque nulle \\
 \section{Scénarios d'attaque}
 \label{sec:scenarios}
 
-Dans les sections ci-dessous, différents scénarios d'attaque sont listés et analysé en détails. Pour chacun d'eux, les failles qui existaient dans le projet ont été listées et analysées. Toutes les contre-mesures appliquée pour les corriger sont détaillées dans la \autoref{sec:contremesures}. Dans la \hyperref[sec:conclusion]{conclusion}, vous retrouverez toutes les listes des failles existantes, absente, corrigées ou exploitables.
+Dans les sections ci-dessous, différents scénarios d'attaque sont listés et analysé en détails. Pour chacun d'eux, les failles qui existaient dans le projet ont été listées et analysées. Toutes les contre-mesures applicables pour les corriger sont détaillées dans la \autoref{sec:contremesures}. Dans la \hyperref[sec:conclusion]{conclusion}, vous retrouverez toutes les listes des failles existantes, absente, corrigées ou exploitables.
 
 Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parlé, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système.
 
@@ -502,8 +509,8 @@ Comme dans la plupart des applications web et des projets de cette envergure, le
 
 \renewcommand{\arraystretch}{1.6}
 \begin{tabular}{@{}p{4cm}p{12cm}}
-\textbf{Scénario:} &  \\
-\textbf{Impact:} & Haut \\
+\textbf{Scénario:} &  Un hacker décidé à récupérer des données pour son nouveau dictionnaire de mots de passe suisses romands, connaît l'existence d'un jeune projet à la HEIG-VD. En accédant au site web, il découvre une vulnérabilité lui permettant de récupérer les données présentes dans la base de données. Il peut donc compléter son dictionnaire qu'il utilisera à des fins malveillantes. \\
+\textbf{Impact:} & Moyen \\
 \textbf{Source de menace: } & Concurrents, script kiddies, hackers et cybercriminels \\
 \textbf{Motivation:} & La gloire (script kiddies, hackers)
 
@@ -517,11 +524,34 @@ Sécuriser son accès
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
-\subsubsection{Injections SQL}
+\subsubsection{Injections NoSQL}
+
+Quand on parle de failles touchant les bases de données, on pense forcément au numéro 1 du top 10 de l'OWASP : les injections SQL. Dans notre application la base de données déployée n'est pas une base de données SQL mais MongoDB. Néanmoins, après quelques recherches sur Google, on apprend vite que cela ne change rien et que de telles failles existent aussi en NoSQL. L'existence d'une telle faille dans le système mènerait au scénario décrit ci-dessus du vol de données. Voici le lien officiel de l'OWASP expliquant en gros le fonctionnement et la détections de telles injections dans un base de données MongoDB : 
+
+\url{https://www.owasp.org/index.php/Testing_for_NoSQL_injection}
+
+Un courte explication des contre-mesures envisageables pour une telle faille est donnée dans la \autoref{ssec:cm_nosql}
 
 \subsubsection{Lisibilité du contenu sensible}
 
-\subsubsection{Gestion d'accès}
+Ceci ne reprend pas vraiment une faille à proprement parlé mais plutôt une précaution qu'il faut prendre lors du développement d'une application web. Imaginons que nous ayons corrigés les failles permettant les injections NoSQL décrites ci-dessus, une faille zero-day soit découverte sur
+les librairies utilisées par notre application. Malgré nos protections, un attaquant peut donc accéder au contenu de la base de données et récupérer les mots de passe et autres données.
+
+Prévenir vaut mieux que guérir et donc chiffrer et saler les mots de passe dans la base de données s'avère nécessaire. Cela permet d'éviter que les sessions utilisateurs soient compromises sans aucune attaque par dictionnaire ou par brute-force. 
+
+Dans les contremesures, une explications plus poussée du salage et du hachage sont données. Voici néanmoins les conseils de l'OWASP : \url{https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet}
+
+\subsubsection{Configuration de la base de données}
+
+La configuration d'une base de données est très importante car de nombreux points peuvent vite s'avérer cruciaux en cas d'attaque : 
+
+\begin{itemize}
+\item[•] Si une base de données n'est pas maintenue à jour, elle peut être le service peut être la cible d'attaques diverses et connues sur les versions antérieures. \href{https://www.cvedetails.com/vulnerability-list/vendor_id-12752/product_id-25450/Mongodb-Mongodb.html}{Une liste longue comme le bras de vulnérabilités} existe sur les anciennes versions de MongoDB. Il est donc essentiel de garder la base de données à jour.
+\item[•] Un mauvaise gestion de droits des utilisateurs de la base de données peut être dangereux si un utilisateur accède directement à la base données.
+\item[•] Une notion importante dans une base de données est celle de \emph{built-in function}. En cas de réussite d'une attaque NoSQL, si celle-ci sont laissées activées par défaut, le pivot et la compromission complète de la base de données devient facile pour un attaquant même inexpérimenté.
+\end{itemize}
+
+Les contre-mesure de la \autoref{ssec:cm_configDB} expliquent quels modèles utiliser pour la configuration d'une telle base de données.
 
 %\begin{itemize}
 %\item Injections SQL
@@ -569,13 +599,43 @@ Protéger correctement les sessions avec des mots de passe forts
 
 \subsubsection{Cross-site scripting}
 
+Une faille XSS exploitée correctement par un attaquant permet de voler un cookie de session valide ou de faire en sorte que du code soit exécuter involontairement par un utilisateur. Cette vulnérabilité fait aussi parti du top 10 de l'OWASP. 
+
+Voici le lien officiel décrivant donc le fonctionnement de telles attaques : 
+
+\url{https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)}
+
 \subsubsection{Brute-force du système de login}
+
+Une autre possibilité pour réaliser ce scénario est la brute force pure et simple du système de login. Sans contrôle particulier, un utilisateur possédant un bon dictionnaire de nom d'utilisateurs et de mots de
+passe peut tenter de forcer le login de l'application et donc d'accéder directement à une session qui n'est pas la sienne.
 
 \subsubsection{Actions involontaires de l'utilisateur}
 
+Les attaques CSRF \footnote{Petit rappel sur le CSRF : \url{https://en.wikipedia.org/wiki/Cross-site_request_forgery}} sont souvent ignorée dans les applications web et pourtant, elles peuvent avoir des conséquences importantes au niveau de la sécurité. Une faille CSRF est difficile a
+mettre en évidence et à exploiter, mais si aucune protection n'a explicitement été mise en place, on peut supposer que l'application en question sera vulnérable au CSRF.
+
 \subsubsection{Contrôles d'accès}
 
+Le contrôle d'accès est un point \textbf{crucial} de la sécurité des applications web. Si un utilisateur lambda peut accéder à une page ou à une fonction administrateur, l'aboutissement du scénario est complet. Si le contrôle d'accès n'est pas bien fait une élévation verticale ou horizontale des privilèges est devient possible. 
+
+Rappelons ici que notre application possède quatre vues en tout :
+
+\begin{itemize}
+\item[•] Les simples visiteurs non-connectés
+\item[•] Les utilisateurs standards
+\item[•] Les administrateurs
+\item[•] Les capteurs
+\end{itemize}
+
+Le contrôle d'accès doit bien évidemment \textbf{cloisonner} chacun des rôles à sa propre vue même si les implications ne semblent pas importantes. Pour cela, la \autoref{ssec:cm_controleacces} de contremesures décrit un système qui peut être implémenté pour un contrôle d'accès correct avec une structure comme la notre.
+
 \subsubsection{Durée de vie de la session}
+
+Si l'application ne vérifie pas la durée de vie d'une session. Un utilisateur laissant sa session connectée, laisserait n'importe quelle personne qui prenant la main sur l'ordinateur utiliser le compte de l'utilisateur.
+Prenons l'exemple de l'utilisateur allant chercher un café. Si une personne avait accès à l'ordinateur de l'utilisateur il pourrait faire toutes les opérations qu'il voudrait avec ce compte pendant une durée illimitée. De plus, ci-celui est un peu doué en informatique, il peut copier le cookie de session pour le réutiliser à volonté depuis son ordinateur.
+
+En cas de ban d'un utilisateur, le manque de durée de vie est aussi problématique. Imaginons qu'un administrateur décide de bannir un utilisateur en supprimant son compte. Si cet utilisateur est connecté au moment du bannissement, il n'aura aucune répercussion à part s'il perd son cookie, ce qui est assez rare. Tandis qu'avec une durée de vie de session, ce dernier, après un certain temps, ne pourra plus effectuer d'action sur le site est sera déconnecté.
 
 %\begin{itemize}
 %\item XSS
@@ -596,6 +656,7 @@ Souvent, on imagine un hacker pénétrant le système et réalisant des \textbf{
 \begin{center}
 \includegraphics[width=.6\textwidth]{CAI.png}
 \caption{Principes essentiels de la sécurité informatique}
+\label{cia}
 \end{center}
 \end{figure}
 
@@ -619,12 +680,18 @@ Protéger les communications entre les éléments du système
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 
-\subsubsection{Communications authentifiées et chiffrées (TLS)}
+\subsubsection{Communications en clair}
 
-\subsubsection{Chiffrement des trames LoRa}
+Le wifi est une chose fantastique, mais malheureusement les données passent dans l'air et donc tout le monde peut les "voir". Cela implique évidemment que toutes les données passent en clair sur le réseau mots de passe et données compris. C'est évidemment pas sécurisé et la confidentialité des données est fortement impactée. Le compromis idéal est la mise en place d'un tunnel TLS pour toutes les communications HTTP de notre projet. Plus de détails sur la mise en place d'un tel système sont donnés dans la \autoref{ssec:cm_tls}.
+
+Le protocole HTTP classique n'est pas le seul utilisé dans notre projet. Nous utilisons aussi le protocole LoRa qu'il faut donc aussi rendre illisible pour les gens capturant le réseau.
 
 \subsubsection{Messages d'erreur révélant des informations}
 
+Les messages d'erreur sont un moyen de communiquer comme un autre avec l'utilisateur. Il ne doivent en aucun cas révéler des informations qui pourraient être exploitées par quelqu'un de malveillant. 
+
+L'exemple le plus courant est celui du message d'erreur au login indiquant si oui ou non un utilisateur existe. Cela donne déjà beaucoup d'information à un hacker qui n'aura plus qu'à deviner le mot de passe pour usurper la session. 
+\clearpage
 %\begin{itemize}
 %\item SSL/TLS
 %\item Chiffrement des trames LoRa
@@ -633,28 +700,134 @@ Protéger les communications entre les éléments du système
 
 \subsection{Utilisation frauduleuse du matériel}
 
-\begin{itemize}
-\item Protection modification du hardware (signature, tamper-proofing)
-\item Contrôle d'accès physique
-\item Association sécurisée
-\end{itemize}
+\emph{Ce scénario concerne principalement le groupe firmware.}
+\medskip
+
+La nature d'un projet en Internet des Objets implique la présence de capteurs et ou autres éléments physiques dans un bâtiment. Évidemment ces éléments sont exposés "au public" et peuvent être pris pour cibles par des personnes mal-intentionnées. Cette partie de la sécurité est important mais aussi relativement difficile à mettre en place.  
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  Un étudiant un peu curieux et kleptomane sur les bords repère dans l'école une jolie borne composée d'une Raspberry Pi. Celui-ci décide un jour que la borne ne sert pas à grand chose et il l'embarque pour son usage personnel.\\
+\textbf{Impact:} & Haut \\
+\textbf{Source de menace: } & Étudiants kleptomanes, script-kiddies \\
+\textbf{Motivation:} & Profit personnel (étudiants kleptomanes)
+
+La gloire (script-kiddies)\\
+\textbf{Cible:} & Le matériel et le fonctionnement de l'application \\
+\textbf{Contrôles:} & Ne pas laisse le matériel à des endroits accessibles à tous
+
+Mettre en place des "fuse protections" sur les éléments physiques
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{Accès non-contrôlé au hardware}
+
+Empêcher le vol du matériel est quelque chose de compliqué parce que c'est une mesure qui pourra toujours être contournée avec des moyens. Si le concepteur met le dispositif dans un boite, la boite peut être volée etc... 
+
+Pourtant c'est un point qu'il est important de ne pas négliger dans un projet pareil car le matériel coûte cher.
+
+\subsubsection{Composants réinscriptibles}
+
+Au cas où le matériel aurait été subtilisé malgré les protections mises en place au point précédent. Il faut éviter au maximum que le profiteur ait envie de recommencer. Si celui-ci vole du matériel et peut être en mesure de l'utiliser, ça peut vivement l'encourager à recommencer. Alors que si des protections sont mises en place, le risque est un peu mitigé. Dans les contre-mesures de la \autoref{ssec:cm_fuse}, une méthode très connue des développeurs hardware est présentée pour protéger les matériaux contre un écrasement de leur contenu actuel.
+\clearpage
+
+%\begin{itemize}
+%\item Protection modification du hardware (signature, tamper-proofing)
+%\item Contrôle d'accès physique
+%\item Association sécurisée
+%\end{itemize}
 
 \subsection{Altération des données}
 
-\begin{itemize}
-\item Signature des trames LoRa
-\item \emph{Man in the middle}
-\item Association sécurisée (capteur - serveur)
-\end{itemize}
+\emph{Ce scénario concerne principalement les groupes infrastructure et firmware.}
+\medskip
+
+D'ordinaire, on se dit qu'un individu malveillant cherche forcément à avoir le contrôle complet de sa cible. Néanmoins, le plus souvent un contrôle ou une altération partielle du système ou des données peut avoir de grosses conséquences sur le système. Il est donc très important de protéger les protéger dans les trois axes présentés précédemment dans la \autoref{cia} : confidentialité, intégrité, disponibilité.
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  Un concurrent direct à notre application désire montrer que leur solution est meilleure que la notre. Pour cela, ils décident d'altérer les données transmises par nos capteurs pour qu'elles soient erronées. Plusieurs endroits peuvent être vulnérables notamment les trames LoRa et les données transmises par le back-end. Il faut être capable d'éviter des attaques de type \emph{man in the middle}.  \\
+\textbf{Impact:} & Moyen \\
+\textbf{Source de menace: } & Concurrents, hackers, organisations étatiques \\
+\textbf{Motivation:} & Nuire à l'image de l'entreprise (concurrents)
+
+L'argent (hackers)
+
+L'espionnage (organisations étatiques)\\
+\textbf{Cible:} & Les données métiers\\
+\textbf{Contrôles:} & Contrôle d'intégrité sur les données transmises
+
+Contrôle de l'association capteurs - serveur
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{\emph{Man in the middle}}
+
+Les attaques de types \emph{man in the middle} (MITM) sont très connues. Les attaquants font en sorte, lors d'une attaque de ce type, de se retrouver comme intermédiaire entre deux éléments du système. D'un coté le client aura l'impression de converser avec le bon serveur et le serveur avec un client légitime. 
+
+Pour limiter ce type d'attaque, on utilise les contrôles d'intégrité mis sur les trames. Ceux-ci reviennent à signer les messages avec une clé privée afin que ceux-ci ne puissent être modifié par un MITM sans que cela ne se répercute sur la signature. Dans notre cas, il conviendra de protéger les communications HTTP (avec TLS par exemple), et les communications LoRa. 
+
+Plus de détails sur ces contre-mesures sont documentée dans les sections \ref{ssec:cm_tls} et \ref{ssec:cm_signlora}.
+
+\subsubsection{Association des capteurs à la passerelle}
+
+Pour un individu malveillant, un moment idéal pour réaliser une attaque \emph{man in the middle} est celui ou les composants s'associent. Le moment où un capteur est ajouté au système est crucial car c'est là que le lien de confiance est établi. Des précautions particulières sont a apporter sur ce point, et des protocoles existants du LoRa permettent cette association avec sécurité.  
+
+%\begin{itemize}
+%\item Signature des trames LoRa
+%\item \emph{Man in the middle}
+%\item Association sécurisée (capteur - serveur)
+%\end{itemize}
 
 \subsection{Altération du fonctionnement de l'application}
 
-\begin{itemize}
-\item Dos
-\item Buffer-overflow
-\item Trafic jamming
-\item Système hébergeur et services pas à jour
-\end{itemize}
+\emph{Ce scénario concerne la plupart des groupes.}
+\medskip
+
+De nos jours, les données sont la cible privilégiée des attaques. Néanmoins, une altération ou une interruption du service est tout aussi dommageable pour l'entreprise. Une perte de confiance des utilisateurs nuit rapidement à la réputation et à l'image du prestataire de service. Des fois les hackers jouent sur ce tableau afin de se faire de l'argent facilement sur le dos des entrepreneurs. C'est un problème sécuritaire majeur dans les systèmes et tous les pans du projet peuvent être vulnérables. Ce scénarios reprend en vrac toutes les attaques qui peuvent affecter la disponibilité et le fonctionnement de l'application. 
+\medskip
+
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}p{4cm}p{12cm}}
+\textbf{Scénario:} &  Une organisation de cybercriminels cherche une nouvelle cible et tombe par hasard sur notre projet. Pour se faire de l'argent ils décident de compromettre l'application en la ralentissant ou en touchant sa disponibilité tout en faisant des demandes de rançon aux concepteurs. \\
+\textbf{Impact:} & Moyen \\
+\textbf{Source de menace: } & Concurrents, script-kiddies, hackers \\
+\textbf{Motivation:} & Nuire à l'image de l'entreprise (concurrents)
+
+L'argent (hackers)
+
+La gloire (script-kiddies)\\
+\textbf{Cible:} & La disponibilité, le fonctionnement de l'application\\
+\textbf{Contrôles:} & Redondance des éléments
+
+Contrôle des entrées utilisateurs
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+
+\subsubsection{Attaque par déni de service}
+
+Tous les systèmes informatiques quels qu'ils soient sont vulnérables aux dénis de service. Le principe reste très simple : envoyer trop de requêtes / demandes / trames à une entité pour que celle-ci devienne incapable de toutes les traiter et soit ralentie voir arrêtée. Le problème principal du DDoS (\emph{Distributed Denial of Service}), est qu'il n'est pas possible à endiguer entièrement même avec toutes les mesures du monde. Une menace disposant de moyen techniques et financiers illimités sera toujours capable de créer un dénis de service sur une cible.
+
+Néanmoins nous présentons dans la \autoref{ssec:cm_ddos} plusieurs moyen de mitiger un peu les risques. Mais il convient de garder à l'esprit que pour le dénis de service la protection ultime n'existe pas.
+
+\subsubsection{Brouillage du réseau}
+
+Une autre attaque qu'il est difficile voir impossible de contrer et le brouillage réseau. Nous n'allons pas plus en parler ici car c'est un risque qui pèse sur tout le monde des ondes hertziennes et qui ne peut pas être mitigé à cause des législation qui régissent les réseaux sans-fil (bandes ISM, puissance isotrope rayonnée équivalente).
+
+\subsubsection{Intrusion dans les systèmes hébergeurs}
+
+Malgré toute les failles multiples et variées que nous avons traitées jusqu'ici, l'essentiel pour les hackers reste l'intrusion généralisée et classique dans un système. Un port ouvert avec un service vulnérable, une version de l'OS dépassée comportant des failles de sécurité et des failles permettant une escalade de privilège vers un compte administrateur de la machine et \textbf{tout le système est compromis dans l'arrière boutique}. 
+
+Ces attaque sont les plus dangereuses car elles donnent un accès complet à tous les services, à tous les fichiers, à toutes les bases de données, à toutes les clés privées utilisée pour mettre en place la sécurité jusqu'ici. De plus un attaquant disposant d'un tel contrôle sur une machine d'hébergement peut purement et simplement supprimer le service, l'application, le projet ou même formater complétement tout ce qui lui passe sous la main.  Évidemment, inutile de parler de l'impact immense qu'une telle attaque peut avoir sur un système.
+
+\subsubsection{Ralentissement volontaire de la base de données}
+
+Il ne faut jamais faire confiance à un utilisateur, jamais. Toutes les entrées doivent être contrôlées lors du développement d'un tel projet. Que ce soit pour éviter les attaques de type injection noSQL ou XSS mais aussi pour éviter une surcharge de données pouvant mener à un ralentissement d'une base de données. 
+
+Par exemple un champ beaucoup trop grand ~1'000'000 de caractères représente environ 1 MB de données à stocker dans une base de données. Si l'abus est répété, on arrive vite à un volume de données important qui peut ralentir considérablement une base de données (même noSQL !). 
+\clearpage
 
 %------------------------ Contremesures ------------------------------------
 \section{Contre-mesures}
