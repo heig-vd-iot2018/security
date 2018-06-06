@@ -360,27 +360,39 @@ Le Raspberry Pi 2 comporte les caractéristiques suivantes :
 	\label{raspberry}
 \end{figure}
 
-Lora + SHield
+\newpage
+Le module iC880A-SPI est capable de recevoir des paquets de différents appareils envoyés avec différents facteurs d'étalement sur jusqu'à 8 canaux en parallèle. En raison du fait que la combinaison des facteurs d'étalement et des largeurs de bande du signal donne des débits de données différents, l'utilisation de "Dynamic Data-Rate Adaption" devient possible. Cela signifie que les nœuds LoRa® à grande distance du concentrateur doivent utiliser des facteurs d'étalement plus élevés et donc avoir un débit de données plus faible.
+
+Les nœuds LoRa qui sont plus proches du concentrateur peuvent utiliser des facteurs d'étalement plus faibles et peuvent donc augmenter leur débit de données. Cela permet de construire des réseaux étoiles ou multi-étoiles faciles à gérer sans besoin de routeurs ou de répéteurs.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=350px]{ic880a-spi}
+	\caption{iC880A-SPI - LoRaWAN Concentrator 868 MHz}
+	\label{}
+\end{figure}
+
+Afin de connecter ce module au Raspberry, un shield tel que le \textit{RPi to iC880a interface} est nécessaire.
 
 \newpage
+
 \subsubsection{Bridge}
 
 Dans notre cas, le bridge fait partie intégrante de la gateway. Sur le schéma dans la \autoref{objectifssysteme}, ce dernier est séparé de la gateway afin de bien représenter le passage de l'utilisation du protocole \textit{LoRa} vers le protocole \textit{MQTT}.
+Plus d'informations sont disponibles sur le github suivant : \url{https://github.com/heig-vd-iot2018/infrastructure}
 
 \subsubsection{Network Server}
 
 Ce dernier est divisé en trois parties différentes : Routeur, Broker et Network server.
-
+Plus d'informations sont disponibles sur le github suivant : \url{https://github.com/heig-vd-iot2018/infrastructure}
 \subsubsection{Backend}
 
 Le backend est développé en Node.js avec le framework Express. Ce dernier reçoit des informations depuis le network server et traite ces informations avant de pouvoir fournir ces dernières au frontend.
+Plus d'informations sont disponibles sur le github suivant : \url{https://github.com/heig-vd-iot2018/back-end}
 
 \subsubsection{Frontend}
-
-
-React
-fetch -> update "a la ajax"
-mdp local storage
+Le frontend consiste en la mise en place d'une interface utilisateur permettant de voir les différentes valeurs fournies par les capteurs. Ce dernier a été développé à l'aide des technologies suivantes : \textbf{React}, \textbf{D3} et \textbf{Mapbox.js}.
+Plus d'informations sont disponibles sur le github suivant : \url{https://github.com/heig-vd-iot2018/front-end}
 
 %------------------------ Biens a protéger ---------------------------------
 \newpage
