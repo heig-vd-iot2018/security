@@ -202,7 +202,7 @@
 \headsep=20pt
 
 \section{Introduction}
-Ce document a pour but la sécurisation du projet élaboré dans le cadre du cours IoT dispensé à la HEIG-VD. Ce dernier est un ....... . Dans ce document, les exigences du projet en général seront décrites ainsi que les biens nécessitant une protection contre tout type de menaces ou tout scénarios d'attaque ainsi que les contre-mesures associées. Toutes les technologies utilisées pour ce projet ont été prises en compte.
+Ce document a pour but la sécurisation du projet élaboré dans le cadre du cours IoT dispensé à la HEIG-VD. Ce dernier est une plateforme de collecte de données environnementales issues de plusieurs capteurs. Dans ce document, les exigences du projet en général seront décrites ainsi que les biens nécessitant une protection contre tout type de menaces ou tout scénarios d'attaque ainsi que les contre-mesures associées. De plus, la liste de tous les composants hardware utilisés pour ce projet est donnée. Toutes les technologies utilisées pour ce projet ont été prises en compte.
 
 \subsection{Equipes}
 Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartissant la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
@@ -488,13 +488,13 @@ Probabilité: & Presque nulle \\
 
 Dans les sections ci-dessous, différents scénarios d'attaque sont listés et analysé en détails. Pour chacun d'eux, les failles qui existaient dans le projet ont été listées et analysées. Toutes les contre-mesures appliquée pour les corriger sont détaillées dans la \autoref{sec:contremesures}. Dans la \hyperref[sec:conclusion]{conclusion}, vous retrouverez toutes les listes des failles existantes, absente, corrigées ou exploitables.
 
-Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parlé, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système. 
+Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parlé, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système.
 
 Chacun des chapitres ci-dessous reprend donc un scénario d'attaque ainsi que les failles qui lui sont associées. Avec chaque scénario, se trouve un résumé des enjeux et la liste des failles ainsi que la manière dont elles peuvent être exploitées.
 
 \subsection{Vol d'informations dans la base de données}
 
-\emph{Ce scénario concerne principalement les groupes front-end et back-end}. 
+\emph{Ce scénario concerne principalement les groupes front-end et back-end}.
 \medskip
 
 Comme dans la plupart des applications web et des projets de cette envergure, le groupe \emph{back-end} a mis en place une base de données. Celle-ci est évidemment une cible privilégiée pour les attaquants car elle contient toutes les informations métiers et celles nécessaires à la plateforme web.
@@ -533,10 +533,10 @@ Sécuriser son accès
 \clearpage
 \subsection{Contournement d'authentification}
 
-\emph{Ce scénario concerne principalement les groupes front-end et back-end}. 
+\emph{Ce scénario concerne principalement les groupes front-end et back-end}.
 \medskip
 
-Comme précisé dans notre diagramme des flux (\autoref{ssec:diagramme}), nous voyons qu'il existe plusieurs rôles communiquant avec le back-end. 
+Comme précisé dans notre diagramme des flux (\autoref{ssec:diagramme}), nous voyons qu'il existe plusieurs rôles communiquant avec le back-end.
 
 \begin{enumerate}
 \item Les administrateurs
@@ -590,7 +590,7 @@ Protéger correctement les sessions avec des mots de passe forts
 \emph{Ce scénario concerne principalement le groupe infrastructure.}
 \medskip
 
-Souvent, on imagine un hacker pénétrant le système et réalisant des \textbf{actions} sur ce dernier. Ne considérer que ce pan de la sécurité est une grave méprise. Rappelons le triangle suivant : 
+Souvent, on imagine un hacker pénétrant le système et réalisant des \textbf{actions} sur ce dernier. Ne considérer que ce pan de la sécurité est une grave méprise. Rappelons le triangle suivant :
 
 \begin{figure}[h]
 \begin{center}
