@@ -671,6 +671,37 @@ Protéger les communications entre les éléments du système
 %------------------------ Contremesures ------------------------------------
 \section{Contre-mesures}
 \label{sec:contremesures}
+\subsection{Integrité des trames}
+Afin de garantir l'intégrité des données envoyées sur le réseau LoRa, un contrôle d'intégrité de type CRC32 peut être effectué à l'instar du type de contrôle effectué lors de communications Wifi. Cette somme de contrôle serait mise à la suite des données envoyées et le tout pourrait être chiffré, par exemple avec AES dont la clé serait connue du capteur et de la gateway.
+
+Une fois la trame reçue par la gateway, ou par le capteur, elle serait déchiffrée et le CRC32 contrôlé afin d'assurer l'intégrité de la trame reçue.
+
+\subsection{Association sécurisée lora}
+
+\subsection{DDoS}
+Afin d'éviter toute attaque du type déni de service, il serait envisageable d'effectuer un contrôle sur les ip se connectant au backend par exemple afin de limiter ou bloquer l'accès de cette dernière au backend si un certain seuil de requêtes par secondes ou minutes est atteint. De plus, il serait possible de mettre les différents serveurs (network server) en liste blanche. Ceci permettrait que seul les gateway et serveurs authorisés puissent se connecter au backend pour pousser des donnés, mitigeant ainsi le risque de DDoS.
+
+En ce qui concerne le frontend, seul un utilisateur authentifié peut accèder aux données. On pourrait filtrer les requêtes ICMP afin d'éviter une attaque de type \textit{smurt attack}. Afin d'éviter une attaque de type \textit{SYN Flood}, on pourrait limiter dans le temps le nombre de requêtes effectuées par un certain client authentifié.
+
+Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permettre un \textit{autoscaling} lorsque le serveur est surchargé. Toutefois, cette solution serait inefficace si l'attaque par DDoS est de grande envergure.
+
+\subsection{Buffer Overflow}
+
+\subsection{systèmes pas à jour}
+Si l'infrastructure est hébergée sur un fournisseur IaaS, les mises à jour du système sont à la charge du développeur. Si un service PaaS est utilisé, ces mises à jour sont à la charge du fournisseur de services.
+
+Mettre à jour les applications utilisées ainsi que les systèmes d'exploitations doivent être régulièrement mis à jour afin de contrer les vulnérabilités découvertes et patchées.
+
+\subsection{Protection physique}
+L'accès aux différents modules (gateway et senseurs) doivent être protégés afin d'éviter à une tierce partie d'accèder au firmware ou programmes qui tournent sur ces derniers. En effet, si des clés de chiffrement sont disponible sur ces modules afin de chiffrer les trames envoyées entre les senseurs et les gateway, il faut s'assurer que l'accès à cette information est protégé.
+
+Il serait envisageable d'enfermer ces modules dans des armoires techniques fermées à clef afin d'en limiter l'accès.
+
+\subsection{fuse protection}
+Ces "protection fuse"
+
+
+
 
 %------------------------ Conclusion ---------------------------------------
 \section{Conclusion}
