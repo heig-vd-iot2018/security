@@ -2,8 +2,8 @@
 
 %%%  PACKAGES
 \usepackage[utf8]{inputenc}
-\usepackage{geometry}
 \usepackage[frenchb]{babel}
+\usepackage{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{array}           % for better arrays (eg matrices) in maths
 \usepackage{subfig}			% make it possible to include more than one captioned figure/table in a single float
@@ -210,7 +210,7 @@ Ce chapitre sur la sécurité a pour but de décrire d'un point de vue sécurita
 \subsection{Equipes}
 Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartissant la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
 
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.1}
 \begin{center}
 \begin{tabular}{|l|l|}
 	\hline
@@ -1110,6 +1110,39 @@ Une fois la trame reçue par la gateway, ou par le capteur, elle serait déchiff
 \subsection{Association des capteurs à la passerelle}
 \label{ssec:cm-association}
 
+La sécurité du réseau LoRaWAN repose sur deux chiffrements AES-128.
+
+\begin{itemize}
+\item[•] \textbf{Network Session Key} (NwkSKey) assure l'authenticité des nœuds du réseau. La \emph{NwkSKey} permet à l'opérateur de sécurisé le réseau. Cette clé est connu par l'opérateur du réseau et par les fournisseurs d'applications autorisés.
+\item[•] \textbf{Application Session Key} (AppSKey) assure la confidentialité des données. La \emph{AppSKey} permet au fournisseur de l'application de protéger les données transitant par le réseau. Cette clé n'est connu que du fournisseur de l'application. Aucun service tiers peut donc déchiffrer le contenu des messages.
+\end{itemize}
+
+Les données envoyées sont chiffrées avec la \emph{AppSKey} et un en-tête est ajouté. Cet en-tête contient notamment les adresses source et destination. Sur la base de cette nouvelle donnée, un MIC est calculé à l'aide de la \emph{NwkSKey}  pour garantir l'intégrité. Ce MIC permet au réseau de vérifier l'intégrité du message et authentifier le nœud de l'envoie.
+
+\subsubsection{Activation}
+
+Les équipements souhaitant communiqués sur le réseau LoraWAN doivent premièrement obtenir des clés de sessions. Deux méthodes sont disponibles : \textbf{Over-The-Air Activation} (OTAA) ou \textbf{Activation By Personalization} (APB) qui est hors scope dans notre cas.
+
+Le nœud doit transmettre une \emph{join request} au réseau sur la base de 3 paramètres.
+\begin{enumerate}
+\item Un identifiant unique (type EUI-64), \textbf{DevEUI}
+\item L'identifiant du fournisseur de l'application, \textbf{AppEUI}
+\item Une clé AES-128 déterminée par le fournisseur d'application, \textbf{AppKey}
+\end{enumerate}
+\vspace{3mm}
+
+Une fois envoyé au serveur d'enregistrement, il vérifie le MIC de la requête. Si la requête est valide, le serveur envoie une réponse contenant les informations nécessaire pour dériver les clés de sessions (AppSKey et NwkSKey), l'adresse du nœuds sur 32 bits. Les clés de sessions sont générées à chaque nouvelle session.
+
+Comme la sécurité s'appuie entièrement sur une chiffrement symétrique, il est important que le transfert de cette information entre les différentes entités se fasse d'une manière sécurisé. De plus, comme l'équipement stocke une information sensible à savoir la clé de chiffrement. Le système doit stocké la clé d'une manière sécurisée. Mais en dehors de cela, nous pouvons considérer le système sécuritaire natif de LoRaWAN comme tout à fait convenable.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.thethingsnetwork.org/docs/lorawan/security.html}{Documentation officielle -- LoRaWAN security}
+\item[•] \href{http://simfonymobile.com/blog/Should-you-worry-about-LoRaWAN-security/}{Article -- Inquiétude sur la sécurité de LoRaWAN}
+\end{itemize}
+
 \subsection{Attaque par déni de service}
 \label{ssec:cm-ddos}
 
@@ -1144,6 +1177,15 @@ Mettre à jour les applications utilisées ainsi que les systèmes d'exploitatio
 
 \subsection{Ralentissement volontaire de la base de données}
 \label{ssec:cm-oversizing}
+
+Les saisies utilisateurs sont sujets à beaucoup d'attaques différentes puisqu'elles constituent en réelles portes d'entrées à l'application. Il est primordial de contrôler les saisies et leurs tailles. C'est à dire vérifier les caractères pour écarter les caractères spéciaux (voir \autoref{ssec:cm-xss}) et aussi contrôler la taille de la saisie. Cette contre-mesure permet d'éviter des attaques de type \emph{buffer overflow}. De plus si on accepte des inputs trop grands, par exemple  1'000'000 de chars, on enregistra une entrée de 1MB dans le base de données. La base de données deviendra beaucoup trop lente pour être utilisable correctement.
+
+\medskip
+\textbf{Librairies et documentation :}
+
+\begin{itemize}
+\item[•] \href{https://www.owasp.org/index.php/Input_Validation_Cheat_Sheet}{OWASP -- Validation cheat sheet}
+\end{itemize}
 
 \clearpage
 %------------------------ Conclusion ---------------------------------------
