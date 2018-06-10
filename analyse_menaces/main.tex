@@ -1010,31 +1010,31 @@ En plus de cette distinction et de cette durée de vie, il convient d'avoir une 
 
 Pour des questions de confidentialité des données, les trames ne peuvent pas circuler en clair sur le réseau. Il suffirait à un attaquant de sniffer le réseau pour avoir accès aux informations. Cette contre-mesure est implémentée de base par LoRaWAN.
 
-\subsubsection{Certificat SSL pour serveur ngnix}
+\subsubsection{Certificat SSL pour serveur nginx}
 
-Afin de chiffrer les communications entre nos clients et notre serveur web ngnix.
-Pour cela, nous avons créé un \texttt{dockerCompose} qui nous permet de créer un serveur ngnix proxy, un serveur ngnix et un serveur \emph{ngnix let's encrypt compagnion}.
+Afin de chiffrer les communications entre nos clients et notre serveur web nginx.
+Pour cela, nous avons créé un \texttt{dockerCompose} qui nous permet de créer un serveur nginx proxy, un serveur nginx et un serveur \emph{nginx let's encrypt compagnion}.
 \medskip
 
 \begin{itemize}
 
-\item[•] \textbf{Ngnix Proxy}
+\item[•] \textbf{Nginx Proxy}
 \vspace{1mm}
 
-Notre serveur proxy ngnix aura pour tâche de centraliser toutes les requêtes HTTPS et de les rediriger vers les serveurs adéquats (dans notre cas, vu que nous avons qu'un seul service web toutes les requêtes seront redirigées vers notre service ngnix).
+Notre serveur proxy nginx aura pour tâche de centraliser toutes les requêtes HTTPS et de les rediriger vers les serveurs adéquats (dans notre cas, vu que nous avons qu'un seul service web toutes les requêtes seront redirigées vers notre service nginx).
 Vu que notre proxy est accessible directement depuis internet, il possède un certificat SSL délivré par Let's Encrypt.
-Ce certificat est renouvelé à intervalle régulier par le container \emph{ngnix let's encrypt compagnion}
+Ce certificat est renouvelé à intervalle régulier par le container \emph{nginx let's encrypt compagnion}
 \vspace{3mm}
 
-\item[•] \textbf{\emph{Ngnix let's encrypt compagnion}}
+\item[•] \textbf{\emph{Nginx let's encrypt compagnion}}
 \vspace{1mm}
 
-Ce container se réveille périodiquement (une fois par heure) et vérifie que le certificat du proxy ngnix est toujours valable et qu'il n'expire pas dans moins de 30 jours. 
+Ce container se réveille périodiquement (une fois par heure) et vérifie que le certificat du proxy nginx est toujours valable et qu'il n'expire pas dans moins de 30 jours. 
 Si le certificat est valide et que sa durée de validité est supérieure à 30 jours, il se rendort pour une heure.
-Dans le cas où le certificat serait absent, invalide ou expirerait dans moins de 30 jours, le container en régénère un et le place dans le dossier certificats du proxy ngnix et se rendort pour une heure.
+Dans le cas où le certificat serait absent, invalide ou expirerait dans moins de 30 jours, le container en régénère un et le place dans le dossier certificats du proxy nginx et se rendort pour une heure.
 \vspace{3mm}
 
-\item[•] \textbf{Serveur ngnix}
+\item[•] \textbf{Serveur nginx}
 \vspace{1mm}
 
 Ce container est notre serveur web, il reçoit les requêtes des clients que lui transmet le proxy et lui renvoie le contenu demandé par les clients.
@@ -1054,7 +1054,7 @@ Ce container est notre serveur web, il reçoit les requêtes des clients que lui
 \subsection{Messages d'erreur révélant des informations}
 \label{ssec:cm-messageserreurs}
 
-Nos messages d'erreur sur notre version en production doivent donner le minimum d'informations. Par exemple en cas d'erreur de notre serveur ngnix celui-ci doit seulement donner le numéro et le type d'erreur. En aucun cas, il ne doit donner la cause de cette erreur car le message indiquant la cause pourrait divulguer certaines informations utiles à un attaquant. De même, notre serveur ngnix ne devra jamais fournir son numéro de build dans un message d'erreur car il suffirait à un attaquant de chercher sur internet les failles pour la version de notre serveur. 
+Nos messages d'erreur sur notre version en production doivent donner le minimum d'informations. Par exemple en cas d'erreur de notre serveur nginx celui-ci doit seulement donner le numéro et le type d'erreur. En aucun cas, il ne doit donner la cause de cette erreur car le message indiquant la cause pourrait divulguer certaines informations utiles à un attaquant. De même, notre serveur nginx ne devra jamais fournir son numéro de build dans un message d'erreur car il suffirait à un attaquant de chercher sur internet les failles pour la version de notre serveur. 
 
 Un autre endroit où les messages d'erreur doivent être le plus vague possible est le login. Le message d'erreur en cas de saisie de mauvais identifiants ne doit pas dire si le compte existe ou ce qui est faux entre le nom d'utilisateur et le mot de passe. Il devra juste donner un message générique comme celui-ci: "La connexion a échoué. Veuillez vérifier vos identifiants".
 
