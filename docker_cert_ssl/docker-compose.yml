@@ -6,10 +6,10 @@ services:
         volumes:
             - "./logs/nginx/:/var/log/nginx"
             - "../../front-end/app:/var/www/"
-    environment:
-      VIRTUAL_HOST: iot_lora.lan.iict.ch
-      LETSENCRYPT_HOST: iot_lora.lan.iict.ch
-      LETSENCRYPT_EMAIL: ali.muladi@heig-vd.ch
+        environment:
+            VIRTUAL_HOST: iot_lora.lan.iict.ch
+            LETSENCRYPT_HOST: iot_lora.lan.iict.ch
+            LETSENCRYPT_EMAIL: ali.muladi@heig-vd.ch
     nginx-proxy:
         image: jwilder/nginx-proxy
         ports:
