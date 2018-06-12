@@ -4,8 +4,8 @@ services:
     nginx:
         build: nginx
         volumes:
-            - ./logs/nginx/:/var/log/nginx
-			- ../../front-end/app:/var/www/
+            - "./logs/nginx/:/var/log/nginx"
+            - "../../front-end/app:/var/www/"
     environment:
       VIRTUAL_HOST: iot_lora.lan.iict.ch
       LETSENCRYPT_HOST: iot_lora.lan.iict.ch
