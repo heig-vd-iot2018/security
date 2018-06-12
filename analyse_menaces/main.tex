@@ -541,7 +541,7 @@ Sécuriser son accès
 
 \subsubsection{Injections NoSQL}
 
-Quand on parle de failles touchant les bases de données, on pense forcément au numéro 1 du top 10 de l'OWASP : les injections SQL. Dans notre application la base de données déployée n'est pas une base de données SQL mais MongoDB. Néanmoins, après quelques recherches sur Google, on apprend vite que cela ne change rien et que de telles failles existent aussi en NoSQL. L'existence d'une telle faille dans le système mènerait au scénario décrit ci-dessus du vol de données. Voici le lien officiel de l'OWASP expliquant en gros le fonctionnement et la détections de telles injections dans un base de données MongoDB : 
+Quand on parle de failles touchant les bases de données, on pense forcément au numéro 1 du top 10 de l'OWASP : les injections SQL. Dans notre application la base de données déployée n'est pas une base de données SQL mais MongoDB. Néanmoins, après quelques recherches sur Google, on apprend vite que cela ne change rien et que de telles failles existent aussi en NoSQL. L'existence d'une telle faille dans le système mènerait au scénario décrit ci-dessus du vol de données. Voici le lien officiel de l'OWASP expliquant en gros le fonctionnement et la détections de telles injections dans un base de données MongoDB :
 
 \url{https://www.owasp.org/index.php/Testing_for_NoSQL_injection}
 
@@ -552,13 +552,13 @@ Un courte explication des contre-mesures envisageables pour une telle faille est
 Ceci ne reprend pas vraiment une faille à proprement parlé mais plutôt une précaution qu'il faut prendre lors du développement d'une application web. Imaginons que nous ayons corrigés les failles permettant les injections NoSQL décrites ci-dessus, une faille zero-day soit découverte sur
 les librairies utilisées par notre application. Malgré nos protections, un attaquant peut donc accéder au contenu de la base de données et récupérer les mots de passe et autres données.
 
-Prévenir vaut mieux que guérir et donc chiffrer et saler les mots de passe dans la base de données s'avère nécessaire. Cela permet d'éviter que les sessions utilisateurs soient compromises sans aucune attaque par dictionnaire ou par brute-force. 
+Prévenir vaut mieux que guérir et donc chiffrer et saler les mots de passe dans la base de données s'avère nécessaire. Cela permet d'éviter que les sessions utilisateurs soient compromises sans aucune attaque par dictionnaire ou par brute-force.
 
 Dans les contremesures, une explications plus poussée du salage et du hachage sont données. Voici néanmoins les conseils de l'OWASP : \url{https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet}
 
 \subsubsection{Configuration de la base de données}
 
-La configuration d'une base de données est très importante car de nombreux points peuvent vite s'avérer cruciaux en cas d'attaque : 
+La configuration d'une base de données est très importante car de nombreux points peuvent vite s'avérer cruciaux en cas d'attaque :
 
 \begin{itemize}
 \item[•] Si une base de données n'est pas maintenue à jour, elle peut être le service peut être la cible d'attaques diverses et connues sur les versions antérieures. \href{https://www.cvedetails.com/vulnerability-list/vendor_id-12752/product_id-25450/Mongodb-Mongodb.html}{Une liste longue comme le bras de vulnérabilités} existe sur les anciennes versions de MongoDB. Il est donc essentiel de garder la base de données à jour.
@@ -614,9 +614,9 @@ Protéger correctement les sessions avec des mots de passe forts
 
 \subsubsection{Cross-site scripting}
 
-Une faille XSS exploitée correctement par un attaquant permet de voler un cookie de session valide ou de faire en sorte que du code soit exécuter involontairement par un utilisateur. Cette vulnérabilité fait aussi parti du top 10 de l'OWASP. 
+Une faille XSS exploitée correctement par un attaquant permet de voler un cookie de session valide ou de faire en sorte que du code soit exécuter involontairement par un utilisateur. Cette vulnérabilité fait aussi parti du top 10 de l'OWASP.
 
-Voici le lien officiel décrivant donc le fonctionnement de telles attaques : 
+Voici le lien officiel décrivant donc le fonctionnement de telles attaques :
 
 \url{https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)}
 
@@ -632,7 +632,7 @@ mettre en évidence et à exploiter, mais si aucune protection n'a explicitement
 
 \subsubsection{Contrôles d'accès}
 
-Le contrôle d'accès est un point \textbf{crucial} de la sécurité des applications web. Si un utilisateur lambda peut accéder à une page ou à une fonction administrateur, l'aboutissement du scénario est complet. Si le contrôle d'accès n'est pas bien fait une élévation verticale ou horizontale des privilèges est devient possible. 
+Le contrôle d'accès est un point \textbf{crucial} de la sécurité des applications web. Si un utilisateur lambda peut accéder à une page ou à une fonction administrateur, l'aboutissement du scénario est complet. Si le contrôle d'accès n'est pas bien fait une élévation verticale ou horizontale des privilèges est devient possible.
 
 Rappelons ici que notre application possède quatre vues en tout :
 
@@ -703,9 +703,9 @@ Le protocole HTTP classique n'est pas le seul utilisé dans notre projet. Nous u
 
 \subsubsection{Messages d'erreur révélant des informations}
 
-Les messages d'erreur sont un moyen de communiquer comme un autre avec l'utilisateur. Il ne doivent en aucun cas révéler des informations qui pourraient être exploitées par quelqu'un de malveillant. 
+Les messages d'erreur sont un moyen de communiquer comme un autre avec l'utilisateur. Il ne doivent en aucun cas révéler des informations qui pourraient être exploitées par quelqu'un de malveillant.
 
-L'exemple le plus courant est celui du message d'erreur au login indiquant si oui ou non un utilisateur existe. Cela donne déjà beaucoup d'information à un hacker qui n'aura plus qu'à deviner le mot de passe pour usurper la session. 
+L'exemple le plus courant est celui du message d'erreur au login indiquant si oui ou non un utilisateur existe. Cela donne déjà beaucoup d'information à un hacker qui n'aura plus qu'à deviner le mot de passe pour usurper la session.
 \clearpage
 %\begin{itemize}
 %\item SSL/TLS
@@ -718,7 +718,7 @@ L'exemple le plus courant est celui du message d'erreur au login indiquant si ou
 \emph{Ce scénario concerne principalement le groupe firmware.}
 \medskip
 
-La nature d'un projet en Internet des Objets implique la présence de capteurs et ou autres éléments physiques dans un bâtiment. Évidemment ces éléments sont exposés "au public" et peuvent être pris pour cibles par des personnes mal-intentionnées. Cette partie de la sécurité est important mais aussi relativement difficile à mettre en place.  
+La nature d'un projet en Internet des Objets implique la présence de capteurs et ou autres éléments physiques dans un bâtiment. Évidemment ces éléments sont exposés "au public" et peuvent être pris pour cibles par des personnes mal-intentionnées. Cette partie de la sécurité est important mais aussi relativement difficile à mettre en place.
 \medskip
 
 \renewcommand{\arraystretch}{1.6}
@@ -738,7 +738,7 @@ Mettre en place des "fuse protections" sur les éléments physiques
 
 \subsubsection{Accès non-contrôlé au hardware}
 
-Empêcher le vol du matériel est quelque chose de compliqué parce que c'est une mesure qui pourra toujours être contournée avec des moyens. Si le concepteur met le dispositif dans un boite, la boite peut être volée etc... 
+Empêcher le vol du matériel est quelque chose de compliqué parce que c'est une mesure qui pourra toujours être contournée avec des moyens. Si le concepteur met le dispositif dans un boite, la boite peut être volée etc...
 
 Pourtant c'est un point qu'il est important de ne pas négliger dans un projet pareil car le matériel coûte cher.
 
@@ -780,15 +780,15 @@ Contrôle de l'association capteurs - serveur
 
 \subsubsection{\emph{Man in the middle}}
 
-Les attaques de types \emph{man in the middle} (MITM) sont très connues. Les attaquants font en sorte, lors d'une attaque de ce type, de se retrouver comme intermédiaire entre deux éléments du système. D'un coté le client aura l'impression de converser avec le bon serveur et le serveur avec un client légitime. 
+Les attaques de types \emph{man in the middle} (MITM) sont très connues. Les attaquants font en sorte, lors d'une attaque de ce type, de se retrouver comme intermédiaire entre deux éléments du système. D'un coté le client aura l'impression de converser avec le bon serveur et le serveur avec un client légitime.
 
-Pour limiter ce type d'attaque, on utilise les contrôles d'intégrité mis sur les trames. Ceux-ci reviennent à signer les messages avec une clé privée afin que ceux-ci ne puissent être modifié par un MITM sans que cela ne se répercute sur la signature. Dans notre cas, il conviendra de protéger les communications HTTP (avec TLS par exemple), et les communications LoRa. 
+Pour limiter ce type d'attaque, on utilise les contrôles d'intégrité mis sur les trames. Ceux-ci reviennent à signer les messages avec une clé privée afin que ceux-ci ne puissent être modifié par un MITM sans que cela ne se répercute sur la signature. Dans notre cas, il conviendra de protéger les communications HTTP (avec TLS par exemple), et les communications LoRa.
 
 Plus de détails sur ces contre-mesures sont documentée dans les sections \ref{ssec:cm-tls} et \ref{ssec:cm-mitm}.
 
 \subsubsection{Association des capteurs à la passerelle}
 
-Pour un individu malveillant, un moment idéal pour réaliser une attaque \emph{man in the middle} est celui ou les composants s'associent. Le moment où un capteur est ajouté au système est crucial car c'est là que le lien de confiance est établi. Des précautions particulières sont a apporter sur ce point, et des protocoles existants du LoRa permettent cette association avec sécurité.  
+Pour un individu malveillant, un moment idéal pour réaliser une attaque \emph{man in the middle} est celui ou les composants s'associent. Le moment où un capteur est ajouté au système est crucial car c'est là que le lien de confiance est établi. Des précautions particulières sont a apporter sur ce point, et des protocoles existants du LoRa permettent cette association avec sécurité.
 
 %\begin{itemize}
 %\item Signature des trames LoRa
@@ -801,7 +801,7 @@ Pour un individu malveillant, un moment idéal pour réaliser une attaque \emph{
 \emph{Ce scénario concerne la plupart des groupes.}
 \medskip
 
-De nos jours, les données sont la cible privilégiée des attaques. Néanmoins, une altération ou une interruption du service est tout aussi dommageable pour l'entreprise. Une perte de confiance des utilisateurs nuit rapidement à la réputation et à l'image du prestataire de service. Des fois les hackers jouent sur ce tableau afin de se faire de l'argent facilement sur le dos des entrepreneurs. C'est un problème sécuritaire majeur dans les systèmes et tous les pans du projet peuvent être vulnérables. Ce scénarios reprend en vrac toutes les attaques qui peuvent affecter la disponibilité et le fonctionnement de l'application. 
+De nos jours, les données sont la cible privilégiée des attaques. Néanmoins, une altération ou une interruption du service est tout aussi dommageable pour l'entreprise. Une perte de confiance des utilisateurs nuit rapidement à la réputation et à l'image du prestataire de service. Des fois les hackers jouent sur ce tableau afin de se faire de l'argent facilement sur le dos des entrepreneurs. C'est un problème sécuritaire majeur dans les systèmes et tous les pans du projet peuvent être vulnérables. Ce scénarios reprend en vrac toutes les attaques qui peuvent affecter la disponibilité et le fonctionnement de l'application.
 \medskip
 
 \renewcommand{\arraystretch}{1.6}
@@ -833,15 +833,15 @@ Une autre attaque qu'il est difficile voir impossible de contrer et le brouillag
 
 \subsubsection{Intrusion dans les systèmes hébergeurs}
 
-Malgré toute les failles multiples et variées que nous avons traitées jusqu'ici, l'essentiel pour les hackers reste l'intrusion généralisée et classique dans un système. Un port ouvert avec un service vulnérable, une version de l'OS dépassée comportant des failles de sécurité et des failles permettant une escalade de privilège vers un compte administrateur de la machine et \textbf{tout le système est compromis dans l'arrière boutique}. 
+Malgré toute les failles multiples et variées que nous avons traitées jusqu'ici, l'essentiel pour les hackers reste l'intrusion généralisée et classique dans un système. Un port ouvert avec un service vulnérable, une version de l'OS dépassée comportant des failles de sécurité et des failles permettant une escalade de privilège vers un compte administrateur de la machine et \textbf{tout le système est compromis dans l'arrière boutique}.
 
 Ces attaque sont les plus dangereuses car elles donnent un accès complet à tous les services, à tous les fichiers, à toutes les bases de données, à toutes les clés privées utilisée pour mettre en place la sécurité jusqu'ici. De plus un attaquant disposant d'un tel contrôle sur une machine d'hébergement peut purement et simplement supprimer le service, l'application, le projet ou même formater complétement tout ce qui lui passe sous la main.  Évidemment, inutile de parler de l'impact immense qu'une telle attaque peut avoir sur un système.
 
 \subsubsection{Ralentissement volontaire de la base de données}
 
-Il ne faut jamais faire confiance à un utilisateur, jamais. Toutes les entrées doivent être contrôlées lors du développement d'un tel projet. Que ce soit pour éviter les attaques de type injection NoSQL ou XSS mais aussi pour éviter une surcharge de données pouvant mener à un ralentissement d'une base de données. 
+Il ne faut jamais faire confiance à un utilisateur, jamais. Toutes les entrées doivent être contrôlées lors du développement d'un tel projet. Que ce soit pour éviter les attaques de type injection NoSQL ou XSS mais aussi pour éviter une surcharge de données pouvant mener à un ralentissement d'une base de données.
 
-Par exemple un champ beaucoup trop grand ~1'000'000 de caractères représente environ 1 MB de données à stocker dans une base de données. Si l'abus est répété, on arrive vite à un volume de données important qui peut ralentir considérablement une base de données (même NoSQL !). 
+Par exemple un champ beaucoup trop grand ~1'000'000 de caractères représente environ 1 MB de données à stocker dans une base de données. Si l'abus est répété, on arrive vite à un volume de données important qui peut ralentir considérablement une base de données (même NoSQL !).
 \clearpage
 
 %------------------------ Contremesures ------------------------------------
@@ -855,17 +855,17 @@ Il est à noter que les contre-mesures doivent, dans la mesure du possible, util
 \subsection{Injection NoSQL}
 \label{ssec:cm-injections}
 
-Pour protéger notre base de données de ce type d'attaque, il faudrait nettoyer les entrées de toutes lignes de codes exécutables. Pour ce faire, il faudrait utiliser la librairie suivante : mongo-sanitize. 
+Pour protéger notre base de données de ce type d'attaque, il faudrait nettoyer les entrées de toutes lignes de codes exécutables. Pour ce faire, il faudrait utiliser la librairie suivante : mongo-sanitize.
 
 Le code ci-dessous donne un example de quand utiliser cette librairie (source \href{https://www.npmjs.com/package/mongo-sanitize}{NPM}):
 \vspace{2mm}
 \begin{lstlisting}[style=Java]
-var sanitize = require('mongo-sanitize'); 
+var sanitize = require('mongo-sanitize');
 
-var name = sanitize(req.params.name); 
-var password = sanitize(req.params.password);  
+var name = sanitize(req.params.name);
+var password = sanitize(req.params.password);
 
-User.findOne({ "name" : name, "password" : password }, callback);  
+User.findOne({ "name" : name, "password" : password }, callback);
 \end{lstlisting}
 
 \medskip
@@ -881,7 +881,7 @@ User.findOne({ "name" : name, "password" : password }, callback);
 \subsection{Lisibilité du contenu sensible}
 \label{ssec:cm-hash}
 
-Afin de protéger les mots de passe des utilisateurs même en cas de vol de la base de données, il est indispensable de hasher les mots de passe avec des méthodes de hachages qualifiés de surs comme SHA256 ou SHA3. Ainsi même en ayant les tous les hashs des utilisateurs, l'attaquant n'a pas les mots de passe des utilisateurs et ne peut donc pas utiliser leurs comptes. 
+Afin de protéger les mots de passe des utilisateurs même en cas de vol de la base de données, il est indispensable de hasher les mots de passe avec des méthodes de hachages qualifiés de surs comme SHA256 ou SHA3. Ainsi même en ayant les tous les hashs des utilisateurs, l'attaquant n'a pas les mots de passe des utilisateurs et ne peut donc pas utiliser leurs comptes.
 
 Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter du sel à notre application. Le sel consiste à concaténer au mot de passe de l'utilisateur une chaine de caractère aléatoire afin que deux mots de passe identiques ne donnent pas le même hash. Cette chaine de caractère est stockée dans la base de données. Le sel est une excellente protection contre les attaques par dictionnaire car il faut brute forcer les mots de passe un par un.
 \clearpage
@@ -895,15 +895,15 @@ Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter
 \item[•] \href{https://github.com/kelektiv/node.bcrypt.js}{Outil -- Bcrypt pour Node.js}
 \item[•] \href{https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt}{Article -- Node et bycrypt}
 \end{itemize}
- 
+
 \subsection{Configuration de la base de données}
 \label{ssec:cm-configdb}
 
-Afin de sécuriser notre base de données NoSQL, l'idéal serait de définir les rôles selon un modèle RBAC (Role based Access Control). 
+Afin de sécuriser notre base de données NoSQL, l'idéal serait de définir les rôles selon un modèle RBAC (Role based Access Control).
 
-Ainsi chaque compte de la base de données, ne donnera accès qu'aux fonctions dont a besoin le service ou l'utilisateur. Il faut aussi logger les accès à la base de données afin de pouvoir détecter d'éventuels comportements suspects ou bugs. De plus pour assurer une bonne disponibilité de cette BD, il faudrait la monitorer pour pouvoir détecter les problèmes en amont. 
+Ainsi chaque compte de la base de données, ne donnera accès qu'aux fonctions dont a besoin le service ou l'utilisateur. Il faut aussi logger les accès à la base de données afin de pouvoir détecter d'éventuels comportements suspects ou bugs. De plus pour assurer une bonne disponibilité de cette BD, il faudrait la monitorer pour pouvoir détecter les problèmes en amont.
 
-Si la tolérance au down time pour notre application venait à devenir critique, nous devrions envisager de mettre en place un système de base de données redondant. Il serait aussi nécessaire de définir une politique de backup afin de pouvoir se prémunir contre une perte ou une altération de nos données.  
+Si la tolérance au down time pour notre application venait à devenir critique, nous devrions envisager de mettre en place un système de base de données redondant. Il serait aussi nécessaire de définir une politique de backup afin de pouvoir se prémunir contre une perte ou une altération de nos données.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -917,7 +917,7 @@ Si la tolérance au down time pour notre application venait à devenir critique,
 \subsection{\emph{Cross-site scripting}}
 \label{ssec:cm-xss}
 
-Pour protéger notre application contre les attaques de type xss, il faudrait passer les entrées fournit par l'utilisateur dans un filtre choisi afin d'échapper correctement tout code malveillant. 
+Pour protéger notre application contre les attaques de type xss, il faudrait passer les entrées fournit par l'utilisateur dans un filtre choisi afin d'échapper correctement tout code malveillant.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -935,7 +935,7 @@ Plein d'autres librairies existantes et correctes sont disponibles dans Node.js 
 \subsection{Brute-force du système de login}
 \label{ssec:cm-bruteforce}
 
-Afin de se protéger contre les attaques de type brute force ou envoi massif de formulaire, il faudrait mettre des captchas (comme les reCAPTCHAS de Google) afin de s'assurer que c'est bien un humain qui effectue l'action. Ainsi on rendrait impossible les attaques de type brute force effectuées à l'aide de script. De plus, le reCAPTCHAS de Google est vraiment simple d'utilisation et gère de manière automatique une blacklist des adresses IP qui ont tenté de brute-forcer un formulaire. 
+Afin de se protéger contre les attaques de type brute force ou envoi massif de formulaire, il faudrait mettre des captchas (comme les reCAPTCHAS de Google) afin de s'assurer que c'est bien un humain qui effectue l'action. Ainsi on rendrait impossible les attaques de type brute force effectuées à l'aide de script. De plus, le reCAPTCHAS de Google est vraiment simple d'utilisation et gère de manière automatique une blacklist des adresses IP qui ont tenté de brute-forcer un formulaire.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -1029,7 +1029,7 @@ Ce certificat est renouvelé à intervalle régulier par le container \emph{ngin
 \item[•] \textbf{\emph{Nginx let's encrypt compagnion}}
 \vspace{1mm}
 
-Ce container se réveille périodiquement (une fois par heure) et vérifie que le certificat du proxy nginx est toujours valable et qu'il n'expire pas dans moins de 30 jours. 
+Ce container se réveille périodiquement (une fois par heure) et vérifie que le certificat du proxy nginx est toujours valable et qu'il n'expire pas dans moins de 30 jours.
 Si le certificat est valide et que sa durée de validité est supérieure à 30 jours, il se rendort pour une heure.
 Dans le cas où le certificat serait absent, invalide ou expirerait dans moins de 30 jours, le container en régénère un et le place dans le dossier certificats du proxy nginx et se rendort pour une heure.
 \vspace{3mm}
@@ -1054,7 +1054,7 @@ Ce container est notre serveur web, il reçoit les requêtes des clients que lui
 \subsection{Messages d'erreur révélant des informations}
 \label{ssec:cm-messageserreurs}
 
-Nos messages d'erreur sur notre version en production doivent donner le minimum d'informations. Par exemple en cas d'erreur de notre serveur nginx celui-ci doit seulement donner le numéro et le type d'erreur. En aucun cas, il ne doit donner la cause de cette erreur car le message indiquant la cause pourrait divulguer certaines informations utiles à un attaquant. De même, notre serveur nginx ne devra jamais fournir son numéro de build dans un message d'erreur car il suffirait à un attaquant de chercher sur internet les failles pour la version de notre serveur. 
+Nos messages d'erreur sur notre version en production doivent donner le minimum d'informations. Par exemple en cas d'erreur de notre serveur nginx celui-ci doit seulement donner le numéro et le type d'erreur. En aucun cas, il ne doit donner la cause de cette erreur car le message indiquant la cause pourrait divulguer certaines informations utiles à un attaquant. De même, notre serveur nginx ne devra jamais fournir son numéro de build dans un message d'erreur car il suffirait à un attaquant de chercher sur internet les failles pour la version de notre serveur.
 
 Un autre endroit où les messages d'erreur doivent être le plus vague possible est le login. Le message d'erreur en cas de saisie de mauvais identifiants ne doit pas dire si le compte existe ou ce qui est faux entre le nom d'utilisateur et le mot de passe. Il devra juste donner un message générique comme celui-ci: "La connexion a échoué. Veuillez vérifier vos identifiants".
 
@@ -1195,6 +1195,7 @@ Les saisies utilisateurs sont sujets à beaucoup d'attaques différentes puisqu'
 Pour conclure. voici un court résumé des différentes vulnérabilités que nous avons rencontrées lors de ce projet de sécurisation accompagnées de quelques remarques.
 \vspace{5mm}
 
+\begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|p{9cm}|c|}
 \hline
@@ -1237,8 +1238,9 @@ Ralentissement volontaire de la base de données & \cmark \\
 \end{tabular}
 \renewcommand{\arraystretch}{1}
 \vspace{5mm}
+\end{center}
 
-Et plein d'autres... Bien évidemment, certaines manquent surement à l'appel mais les grosses ayant un gros impacts sont belles et bien listées ici. 
+Et plein d'autres... Bien évidemment, certaines manquent surement à l'appel mais les grosses ayant un gros impacts sont belles et bien listées ici.
 
 \clearpage
 \subsection*{Remarques diverses}
@@ -1246,7 +1248,7 @@ Et plein d'autres... Bien évidemment, certaines manquent surement à l'appel ma
 \begin{itemize}
 \item[•] Durant ce projet, nous avons beaucoup travaillé sur la recherche de scénarios et sur la manière de les contrer. Parfois, les contre-mesures n'ont pas été appliquées mais les détails concernant leur mise en place sont données.
 \item[•] D'autres vulnérabilités que nous ignorons se trouvent surement encore dans le projet. La sécurité est quelque chose de complexe et ne peut jamais être parfaite. Nous avons donné les pistes pour sécuriser l'application au mieux, avec nos connaissances et le temps à notre disposition.
-\item[•] Ce document n'est bien évidemment pas là pour pointer du doigt les failles encore existantes. Il est là pour fournir toutes les informations nécessaires afin d'améliorer au maximum la sécurité de ce jeune projet. 
+\item[•] Ce document n'est bien évidemment pas là pour pointer du doigt les failles encore existantes. Il est là pour fournir toutes les informations nécessaires afin d'améliorer au maximum la sécurité de ce jeune projet.
 \end{itemize}
 
 
