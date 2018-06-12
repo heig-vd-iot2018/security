@@ -3,6 +3,7 @@
 *.toc
 *.dvi
 *.log
+*.lof
 *.out
 *.synctex.gz
 */analyse_menaces.pdf
