@@ -208,7 +208,7 @@
 Ce chapitre sur la sécurité a pour but de décrire d'un point de vue sécuritaire le projet élaboré dans le cadre du cours IoT dispensé à la HEIG-VD. Ce dernier est une plateforme de collecte de données environnementales issues de plusieurs capteurs. Dans ce document, les exigences du projet en général seront décrites ainsi que les biens nécessitant une protection contre tout type de menaces ou tout scénarios d'attaque ainsi que les contre-mesures associées. De plus, la liste de tous les composants hardware utilisés pour ce projet est donnée. Toutes les technologies utilisées pour ce projet ont été prises en compte.
 
 \subsection{Equipes}
-Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartissant la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
+Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les différentes compétences et ainsi répartir la charge de travail pour chacun de ces derniers. Chaucun des groupes avaient un répondant pour les autres groupes (représentés en gras ci-dessous).
 
 \renewcommand{\arraystretch}{1.1}
 \begin{center}
@@ -255,7 +255,7 @@ Lors de ce projet, nous avons créé 5 groupes distincts afin de répartir les d
 
 Le but de ce système est la collecte de données depuis plusieurs capteurs répartis sur le site de Cheaseaux. Toutes les informations seront consultables sur un frontend accessible par les visiteurs authentifiés sur un compte publique.
 
-Les différents capteurs (voir \autoref{elementssysteme}) se chargent de récolter des informations relatifs à leur environnement et les transmettent à une gateway dont le but est de collecter ces informations des différentes sources. Un bridge assure le lien entre le réseau LoRa et le réseau internet standard. Toutes les informations sont finalement transmises à un serveur d'applications sur lequel tourne le backend ainsi que le frontend.
+Les différents capteurs (voir \autoref{elementssysteme}) se chargent de récolter des informations relatifs à leur environnement et les transmettent à une gateway dont le but est de collecter ces informations issues des différentes sources. Un bridge assure le lien entre le réseau LoRa et le réseau internet standard. Toutes les informations récoltées sont finalement transmises à un serveur d'applications sur lequel tourne le backend ainsi que le frontend.
 
 Le schéma ci-dessous illustre cette architecture :
 
@@ -269,7 +269,7 @@ Le schéma ci-dessous illustre cette architecture :
 Pour la sécurité, nous avons interprété les exigences suivantes :
 
 \begin{itemize}
-\item[•] L'accès au backend ainsi que l'accès au frontend ne doit être possible que pour les personnes autorisées et authentifiées à l'aide d'un compte soit utilisateur, soit administrateur.
+\item[•] L'accès au backend ainsi que l'accès au frontend ne doit être possible que pour les personnes autorisées et authentifiées à l'aide d'un compte que ce soit un compte utilisateur ou administrateur.
 \item[•] Un utilisateur classique ne doit pas pouvoir accéder aux fonctionnalités réservées aux administrateurs.
 \item[•] Les données transmises par les capteurs ne doivent pas être lisibles sur le réseau.
 \end{itemize}
@@ -277,7 +277,7 @@ Pour la sécurité, nous avons interprété les exigences suivantes :
 \newpage
 \subsection{Éléments du systèmes}\label{elementssysteme} % Les différents capteurs, gateways, etc...
 
-Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que software doivent être utilisés. Les sous-sections suivantes représentent les différents modules hardware utilisés ainsi que les parties software développées pour ce projet.
+Afin de rendre ce système fonctionnel, plusieurs composants hardware ainsi que software doivent être utilisés. Les sous-sections suivantes représentent les différents modules hardware utilisés ainsi que les parties software développées pour ce projet. Pour chacun des modules hardware, une brève description est donnée (fournie par les fabricants).
 
 \subsubsection{Capteurs}
 La carte STM32 Nucleo (\autoref{nucleo}) offre aux utilisateurs un moyen abordable et flexible d'essayer de nouveaux concepts et de construire des prototypes avec le microcontrôleur STM32, en choisissant parmi les différentes combinaisons de performances, de consommation d'énergie et de fonctionnalités. Pour les cartes compatibles, le SMPS réduit considérablement la consommation d'énergie en mode Run.
@@ -292,7 +292,7 @@ Cette carte sera utilisée comme base pour tous les capteurs déployés dans le 
 \end{figure}
 
 \newpage
-Le shield utilisé pour ce projet (\autoref{shield}) rend un Arduino compatible avec plus de 75 capteurs de type clic. C'est un shield simple avec deux prises hôte mikroBUS ™ d'un côté et un connecteur Arduino à l'opposé.
+Le shield utilisé pour ce projet (\autoref{shield}) rend un Arduino compatible avec plus de 75 capteurs de type clic. C'est un shield simple avec deux prises hôte mikroBUS ™ d'un côté et un connecteur Arduino sur le côté opposé.
 
 \begin{figure}[!h]
 	\centering
@@ -301,7 +301,7 @@ Le shield utilisé pour ce projet (\autoref{shield}) rend un Arduino compatible 
 	\label{shield}
 \end{figure}
 
-Le module \textit{Environment click} (\autoref{ambient}) mesure la température, l'humidité relative, la pression et les COV (composés organiques volatils gazeux). Le clic intègre le capteur environnemental BME680 de Bosch. Environnement Click est conçu pour fonctionner sur une alimentation de 3,3 V. Il communique avec le microcontrôleur cible via l'interface SPI ou I2C.
+Le module \textit{Environment click} (\autoref{ambient}) mesure la température, l'humidité relative, la pression et les COV (composés organiques volatils gazeux). Le clic intègre le capteur environnemental BME680 de Bosch. L'Environnement Click est conçu pour fonctionner sur une alimentation de 3,3 V. Il communique avec le microcontrôleur cible via l'interface SPI ou I2C.
 
 \begin{figure}[!h]
 	\centering
@@ -336,7 +336,7 @@ Ci-dessous, une photo du montage complet du capteur avec tous les modules attach
 \newpage
 \subsubsection{Gateway}
 
-Le Raspberry Pi 2 Model B est le Raspberry Pi de deuxième génération. Il a remplacé l'original Raspberry Pi 1 Model B+ en février 2015.
+Le Raspberry Pi 2 Model B est le Raspberry Pi de deuxième génération. Il a remplacé l'original Raspberry Pi 1 Model B+ en février 2015. Ce dernier est utilisé comme base pour la gateway.
 
 Le Raspberry Pi 2 comporte les caractéristiques suivantes :
 
@@ -401,7 +401,7 @@ Plus d'informations sont disponibles sur le github suivant : \url{https://github
 \newpage
 \subsection{Biens nécessitants une protections}
 
-Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet.
+Les biens principaux à sécuriser sont toutes les données qui peuvent contenir des informations métier ou clients. Par exemple, les données transmises par les capteurs ne doivent pas être lisibles par des personnes non-autorisées au cours de leur trajet sur les différents réseaux empruntés.
 
 Les biens concernés par cette protection sont les suivants :
 
@@ -510,7 +510,7 @@ Probabilité: & Presque nulle \\
 
 Dans les sections ci-dessous, différents scénarios d'attaque sont listés et analysé en détails. Pour chacun d'eux, les failles qui existaient dans le projet ont été listées et analysées. Toutes les contre-mesures applicables pour les corriger sont détaillées dans la \autoref{sec:contremesures}. Dans la \hyperref[sec:conclusion]{conclusion}, vous retrouverez toutes les listes des failles existantes, absente, corrigées ou exploitables.
 
-Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parlé, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système.
+Un scénario d'attaque correspond à une marche à suivre qu'un attaquant souhaitant attaquer le système suivrait pour arriver à ses fins. Celui-ci est généralement élaboré par un ingénieur sécurité s'étant mis à la place d'un attaquant. Cet exercice permet de mieux comprendre les vecteurs d'attaque, l'impact, les motivations et les potentielles cibles d'un individu malveillant. Ces scénarios ne représentent pas les failles sécuritaires à proprement parler, mais les motivations générales qu'un attaquant peut avoir pour attaquer le système.
 
 Chacun des chapitres ci-dessous reprend donc un scénario d'attaque ainsi que les failles qui lui sont associées. Avec chaque scénario, se trouve un résumé des enjeux et la liste des failles ainsi que la manière dont elles peuvent être exploitées.
 
@@ -541,28 +541,27 @@ Sécuriser son accès
 
 \subsubsection{Injections NoSQL}
 
-Quand on parle de failles touchant les bases de données, on pense forcément au numéro 1 du top 10 de l'OWASP : les injections SQL. Dans notre application la base de données déployée n'est pas une base de données SQL mais MongoDB. Néanmoins, après quelques recherches sur Google, on apprend vite que cela ne change rien et que de telles failles existent aussi en NoSQL. L'existence d'une telle faille dans le système mènerait au scénario décrit ci-dessus du vol de données. Voici le lien officiel de l'OWASP expliquant en gros le fonctionnement et la détections de telles injections dans un base de données MongoDB :
+Quand on parle de failles touchant les bases de données, on pense forcément au numéro 1 du top 10 de l'OWASP : les injections SQL. Dans notre application, la base de données déployée n'est pas une base de données SQL mais MongoDB. Néanmoins, après quelques recherches sur Google, on apprend vite que cela ne change rien et que de telles failles existent aussi en NoSQL. L'existence d'une telle faille dans le système mènerait au scénario décrit ci-dessus du vol de données. Voici le lien officiel de l'OWASP expliquant en gros le fonctionnement et la détections de telles injections dans un base de données MongoDB :
 
 \url{https://www.owasp.org/index.php/Testing_for_NoSQL_injection}
 
-Un courte explication des contre-mesures envisageables pour une telle faille est donnée dans la \autoref{ssec:cm-injections}
+Une courte explication des contre-mesures envisageables pour une telle faille est donnée dans la \autoref{ssec:cm-injections}
 
 \subsubsection{Lisibilité du contenu sensible}
 
-Ceci ne reprend pas vraiment une faille à proprement parlé mais plutôt une précaution qu'il faut prendre lors du développement d'une application web. Imaginons que nous ayons corrigés les failles permettant les injections NoSQL décrites ci-dessus, une faille zero-day soit découverte sur
-les librairies utilisées par notre application. Malgré nos protections, un attaquant peut donc accéder au contenu de la base de données et récupérer les mots de passe et autres données.
+Ceci ne reprend pas vraiment une faille à proprement parler mais plutôt une précaution qu'il faut prendre lors du développement d'une application web. Imaginons que nous ayons corrigés les failles permettant les injections NoSQL décrites ci-dessus, mais qu'une faille zero-day soit découverte sur les librairies utilisées par notre application. Malgré nos protections mises en place, un attaquant pourra donc accéder au contenu de la base de données et récupérer les mots de passe et autres données confidentielles.
 
 Prévenir vaut mieux que guérir et donc chiffrer et saler les mots de passe dans la base de données s'avère nécessaire. Cela permet d'éviter que les sessions utilisateurs soient compromises sans aucune attaque par dictionnaire ou par brute-force.
 
-Dans les contremesures, une explications plus poussée du salage et du hachage sont données. Voici néanmoins les conseils de l'OWASP : \url{https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet}
+Dans les contremesures, une explications plus poussée du salage et du hachage sont données. Voici néanmoins les conseils de l'OWASP à ce propos : \url{https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet}
 
 \subsubsection{Configuration de la base de données}
 
 La configuration d'une base de données est très importante car de nombreux points peuvent vite s'avérer cruciaux en cas d'attaque :
 
 \begin{itemize}
-\item[•] Si une base de données n'est pas maintenue à jour, elle peut être le service peut être la cible d'attaques diverses et connues sur les versions antérieures. \href{https://www.cvedetails.com/vulnerability-list/vendor_id-12752/product_id-25450/Mongodb-Mongodb.html}{Une liste longue comme le bras de vulnérabilités} existe sur les anciennes versions de MongoDB. Il est donc essentiel de garder la base de données à jour.
-\item[•] Un mauvaise gestion de droits des utilisateurs de la base de données peut être dangereux si un utilisateur accède directement à la base données.
+\item[•] Si une base de données n'est pas maintenue à jour, elle peut être la cible d'attaques diverses et connues sur les versions antérieures. \href{https://www.cvedetails.com/vulnerability-list/vendor_id-12752/product_id-25450/Mongodb-Mongodb.html}{Une liste longue comme le bras de vulnérabilités} existe sur les anciennes versions de MongoDB. Il est donc essentiel de garder la base de données à jour.
+\item[•] Une mauvaise gestion de droits des utilisateurs de la base de données peut être dangereux si un utilisateur accède directement à la base données.
 \item[•] Une notion importante dans une base de données est celle de \emph{built-in function}. En cas de réussite d'une attaque NoSQL, si celle-ci sont laissées activées par défaut, le pivot et la compromission complète de la base de données devient facile pour un attaquant même inexpérimenté.
 \end{itemize}
 
@@ -614,7 +613,7 @@ Protéger correctement les sessions avec des mots de passe forts
 
 \subsubsection{Cross-site scripting}
 
-Une faille XSS exploitée correctement par un attaquant permet de voler un cookie de session valide ou de faire en sorte que du code soit exécuter involontairement par un utilisateur. Cette vulnérabilité fait aussi parti du top 10 de l'OWASP.
+Une faille XSS exploitée correctement par un attaquant permet de voler un cookie de session valide ou de faire en sorte que du code soit exécuté involontairement par un utilisateur. Cette vulnérabilité fait aussi partie du top 10 de l'OWASP.
 
 Voici le lien officiel décrivant donc le fonctionnement de telles attaques :
 
@@ -622,17 +621,17 @@ Voici le lien officiel décrivant donc le fonctionnement de telles attaques :
 
 \subsubsection{Brute-force du système de login}
 
-Une autre possibilité pour réaliser ce scénario est la brute force pure et simple du système de login. Sans contrôle particulier, un utilisateur possédant un bon dictionnaire de nom d'utilisateurs et de mots de
+Une autre possibilité pour réaliser ce scénario est la brute force pur et simple du système de login. Sans contrôle particulier, un utilisateur possédant un bon dictionnaire de nom d'utilisateurs et de mots de
 passe peut tenter de forcer le login de l'application et donc d'accéder directement à une session qui n'est pas la sienne.
 
 \subsubsection{\emph{Cross-site request forgery}}
 
-Les attaques CSRF \footnote{Petit rappel sur le CSRF : \url{https://en.wikipedia.org/wiki/Cross-site_request_forgery}} sont souvent ignorée dans les applications web et pourtant, elles peuvent avoir des conséquences importantes au niveau de la sécurité. Une faille CSRF est difficile a
-mettre en évidence et à exploiter, mais si aucune protection n'a explicitement été mise en place, on peut supposer que l'application en question sera vulnérable au CSRF.
+Les attaques CSRF \footnote{Petit rappel sur le CSRF : \url{https://en.wikipedia.org/wiki/Cross-site_request_forgery}} sont souvent ignorée dans les applications web et pourtant, elles peuvent avoir des conséquences importantes au niveau de la sécurité. Une faille CSRF est difficile à
+mettre en évidence et à exploiter, mais si aucune protection n'a explicitement été mise en place, on peut supposer que l'application en question sera vulnérable aux CSRF.
 
 \subsubsection{Contrôles d'accès}
 
-Le contrôle d'accès est un point \textbf{crucial} de la sécurité des applications web. Si un utilisateur lambda peut accéder à une page ou à une fonction administrateur, l'aboutissement du scénario est complet. Si le contrôle d'accès n'est pas bien fait une élévation verticale ou horizontale des privilèges est devient possible.
+Le contrôle d'accès est un point \textbf{crucial} de la sécurité des applications web. Si un utilisateur lambda peut accéder à une page ou à une fonction administrateur, l'aboutissement du scénario est complet. Si le contrôle d'accès n'est pas bien fait, une élévation verticale ou horizontale des privilèges devient possible.
 
 Rappelons ici que notre application possède quatre vues en tout :
 
@@ -647,10 +646,10 @@ Le contrôle d'accès doit bien évidemment \textbf{cloisonner} chacun des rôle
 
 \subsubsection{Durée de vie de la session}
 
-Si l'application ne vérifie pas la durée de vie d'une session. Un utilisateur laissant sa session connectée, laisserait n'importe quelle personne qui prenant la main sur l'ordinateur utiliser le compte de l'utilisateur.
-Prenons l'exemple de l'utilisateur allant chercher un café. Si une personne avait accès à l'ordinateur de l'utilisateur il pourrait faire toutes les opérations qu'il voudrait avec ce compte pendant une durée illimitée. De plus, ci-celui est un peu doué en informatique, il peut copier le cookie de session pour le réutiliser à volonté depuis son ordinateur.
+Si l'application ne vérifie pas la durée de vie d'une session. Un utilisateur laissant sa session connectée  laisserait n'importe quelle personne qui, prenant la main sur l'ordinateur, utiliser le compte de l'utilisateur.
+Prenons l'exemple de l'utilisateur allant chercher un café. Si une personne avait accès à l'ordinateur de l'utilisateur il pourrait faire toutes les opérations qu'il voudrait avec ce compte pendant une durée illimitée. De plus, si celui-ci est un peu doué en informatique, il peut copier le cookie de session pour le réutiliser à volonté depuis son ordinateur.
 
-En cas de ban d'un utilisateur, le manque de durée de vie est aussi problématique. Imaginons qu'un administrateur décide de bannir un utilisateur en supprimant son compte. Si cet utilisateur est connecté au moment du bannissement, il n'aura aucune répercussion à part s'il perd son cookie, ce qui est assez rare. Tandis qu'avec une durée de vie de session, ce dernier, après un certain temps, ne pourra plus effectuer d'action sur le site est sera déconnecté.
+En cas de ban d'un utilisateur, le manque de durée de vie est aussi problématique. Imaginons qu'un administrateur décide de bannir un utilisateur en supprimant son compte. Si cet utilisateur est connecté au moment du bannissement, il n'aura aucune répercussion à part s'il perd son cookie, ce qui est assez rare. Tandis qu'avec une durée de vie de session, ce dernier, après un certain temps, ne pourra plus effectuer d'action sur le site et sera déconnecté.
 
 %\begin{itemize}
 %\item XSS
@@ -675,7 +674,7 @@ Souvent, on imagine un hacker pénétrant le système et réalisant des \textbf{
 \end{center}
 \end{figure}
 
-La confidentialité peut en effet être mise à mal sans même une action directe sur les données. L'interception peut permettre la lecture de ces dernières et si l'information n'est pas obfusquée, on peut récupérer des données sans le consentement des parties et donc mettre à mal la sécurité de l'information. Il est donc primordial de protéger les données dans leur transmission surtout sur des médiums partagés.
+La confidentialité peut en effet être mise à mal sans même une action directe sur les données. L'interception de données peut permettre la lecture de ces dernières et si l'information n'est pas obfusquée, on peut récupérer des données sans le consentement des parties et donc mettre à mal la sécurité de l'information. Il est donc primordial de protéger les données dans leur transmission surtout sur des médiums partagés tels que les réseaux sans fils.
 \medskip
 
 \renewcommand{\arraystretch}{1.6}
@@ -697,9 +696,9 @@ Protéger les communications entre les éléments du système
 
 \subsubsection{Communications en clair}
 
-Le wifi est une chose fantastique, mais malheureusement les données passent dans l'air et donc tout le monde peut les "voir". Cela implique évidemment que toutes les données passent en clair sur le réseau mots de passe et données compris. C'est évidemment pas sécurisé et la confidentialité des données est fortement impactée. Le compromis idéal est la mise en place d'un tunnel TLS pour toutes les communications HTTP de notre projet. Plus de détails sur la mise en place d'un tel système sont donnés dans la \autoref{ssec:cm-tls}.
+Le wifi est une chose fantastique, mais malheureusement les données passent dans l'air et donc tout le monde peut les "voir". Cela implique évidemment que toutes les données passent en clair sur le réseau mots de passe et données comprises. C'est évidemment pas sécurisé et la confidentialité des données est fortement impactée. Le compromis idéal est la mise en place d'un tunnel TLS pour toutes les communications HTTP de notre projet. Plus de détails sur la mise en place d'un tel système sont donnés dans la \autoref{ssec:cm-tls}.
 
-Le protocole HTTP classique n'est pas le seul utilisé dans notre projet. Nous utilisons aussi le protocole LoRa qu'il faut donc aussi rendre illisible pour les gens capturant le réseau.
+Le protocole HTTP classique n'est pas le seul utilisé dans notre projet. Nous utilisons aussi le protocole LoRa qu'il faut donc aussi rendre illisible pour toute personne effectuant une capture sur le réseau.
 
 \subsubsection{Messages d'erreur révélant des informations}
 
@@ -744,7 +743,7 @@ Pourtant c'est un point qu'il est important de ne pas négliger dans un projet p
 
 \subsubsection{Composants réinscriptibles}
 
-Au cas où le matériel aurait été subtilisé malgré les protections mises en place au point précédent. Il faut éviter au maximum que le profiteur ait envie de recommencer. Si celui-ci vole du matériel et peut être en mesure de l'utiliser, ça peut vivement l'encourager à recommencer. Alors que si des protections sont mises en place, le risque est un peu mitigé. Dans les contre-mesures de la \autoref{ssec:cm-fuse}, une méthode très connue des développeurs hardware est présentée pour protéger les matériaux contre un écrasement de leur contenu actuel.
+Au cas où le matériel aurait été subtilisé malgré les protections mises en place au point précédent, il faut éviter au maximum que le profiteur ait envie de recommencer. Si celui-ci vole du matériel et peut être en mesure de l'utiliser, ça peut vivement l'encourager à recommencer. Alors que si des protections sont mises en place, le risque est un peu mitigé. Dans les contre-mesures de la \autoref{ssec:cm-fuse}, une méthode très connue des développeurs hardware est présentée pour protéger les matériaux contre un écrasement de leur contenu actuel.
 \clearpage
 
 %\begin{itemize}
@@ -758,7 +757,7 @@ Au cas où le matériel aurait été subtilisé malgré les protections mises en
 \emph{Ce scénario concerne principalement les groupes infrastructure et firmware.}
 \medskip
 
-D'ordinaire, on se dit qu'un individu malveillant cherche forcément à avoir le contrôle complet de sa cible. Néanmoins, le plus souvent un contrôle ou une altération partielle du système ou des données peut avoir de grosses conséquences sur le système. Il est donc très important de protéger les protéger dans les trois axes présentés précédemment dans la \autoref{cia} : confidentialité, intégrité, disponibilité.
+D'ordinaire, on se dit qu'un individu malveillant cherche forcément à avoir le contrôle complet de sa cible. Néanmoins, le plus souvent un contrôle ou une altération partielle du système ou des données peut avoir de grosses conséquences sur le système. Il est donc très important de protéger dans les trois axes présentés précédemment dans la \autoref{cia} : confidentialité, intégrité, disponibilité.
 \medskip
 
 \renewcommand{\arraystretch}{1.6}
@@ -835,7 +834,7 @@ Une autre attaque qu'il est difficile voir impossible de contrer et le brouillag
 
 Malgré toute les failles multiples et variées que nous avons traitées jusqu'ici, l'essentiel pour les hackers reste l'intrusion généralisée et classique dans un système. Un port ouvert avec un service vulnérable, une version de l'OS dépassée comportant des failles de sécurité et des failles permettant une escalade de privilège vers un compte administrateur de la machine et \textbf{tout le système est compromis dans l'arrière boutique}.
 
-Ces attaque sont les plus dangereuses car elles donnent un accès complet à tous les services, à tous les fichiers, à toutes les bases de données, à toutes les clés privées utilisée pour mettre en place la sécurité jusqu'ici. De plus un attaquant disposant d'un tel contrôle sur une machine d'hébergement peut purement et simplement supprimer le service, l'application, le projet ou même formater complétement tout ce qui lui passe sous la main.  Évidemment, inutile de parler de l'impact immense qu'une telle attaque peut avoir sur un système.
+Ces attaque sont les plus dangereuses car elles donnent un accès complet à tous les services, à tous les fichiers, à toutes les bases de données, à toutes les clés privées utilisées pour mettre en place la sécurité jusqu'ici. De plus un attaquant disposant d'un tel contrôle sur une machine d'hébergement peut purement et simplement supprimer le service, l'application, le projet ou même formater complétement tout ce qui lui passe sous la main.  Évidemment, inutile de parler de l'impact immense qu'une telle attaque peut avoir sur un système.
 
 \subsubsection{Ralentissement volontaire de la base de données}
 
@@ -881,9 +880,9 @@ User.findOne({ "name" : name, "password" : password }, callback);
 \subsection{Lisibilité du contenu sensible}
 \label{ssec:cm-hash}
 
-Afin de protéger les mots de passe des utilisateurs même en cas de vol de la base de données, il est indispensable de hasher les mots de passe avec des méthodes de hachages qualifiés de surs comme SHA256 ou SHA3. Ainsi même en ayant les tous les hashs des utilisateurs, l'attaquant n'a pas les mots de passe des utilisateurs et ne peut donc pas utiliser leurs comptes.
+Afin de protéger les mots de passe des utilisateurs même en cas de vol de la base de données, il est indispensable de hacher les mots de passe avec des méthodes de hachages qualifiés de surs comme SHA256 ou SHA3. Ainsi, même en ayant tous les hashs des utilisateurs, l'attaquant n'a pas les mots de passe des utilisateurs et ne peut donc pas utiliser leurs comptes.
 
-Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter du sel à notre application. Le sel consiste à concaténer au mot de passe de l'utilisateur une chaine de caractère aléatoire afin que deux mots de passe identiques ne donnent pas le même hash. Cette chaine de caractère est stockée dans la base de données. Le sel est une excellente protection contre les attaques par dictionnaire car il faut brute forcer les mots de passe un par un.
+Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter du sel à notre application. Le sel consiste à concaténer au mot de passe de l'utilisateur une chaine de caractère aléatoire afin que deux mots de passe identiques ne donnent pas le même hash. Cette chaine de caractère est stockée dans la base de données. Le sel est une excellente protection contre les attaques par rainbow table car il faut brute forcer les mots de passe un par un.
 \clearpage
 
 \medskip
@@ -901,7 +900,7 @@ Afin d'augmenter encore la sécurité de notre application, nous pouvons ajouter
 
 Afin de sécuriser notre base de données NoSQL, l'idéal serait de définir les rôles selon un modèle RBAC (Role based Access Control).
 
-Ainsi chaque compte de la base de données, ne donnera accès qu'aux fonctions dont a besoin le service ou l'utilisateur. Il faut aussi logger les accès à la base de données afin de pouvoir détecter d'éventuels comportements suspects ou bugs. De plus pour assurer une bonne disponibilité de cette BD, il faudrait la monitorer pour pouvoir détecter les problèmes en amont.
+Ainsi, chaque compte de la base de données ne donnera accès qu'aux fonctions dont a besoin le service ou l'utilisateur. Il faut aussi logger les accès à la base de données afin de pouvoir détecter d'éventuels comportements suspects ou bugs. De plus pour assurer une bonne disponibilité de cette BDD, il faudrait la monitorer pour pouvoir détecter les problèmes en amont.
 
 Si la tolérance au down time pour notre application venait à devenir critique, nous devrions envisager de mettre en place un système de base de données redondant. Il serait aussi nécessaire de définir une politique de backup afin de pouvoir se prémunir contre une perte ou une altération de nos données.
 
@@ -935,7 +934,7 @@ Plein d'autres librairies existantes et correctes sont disponibles dans Node.js 
 \subsection{Brute-force du système de login}
 \label{ssec:cm-bruteforce}
 
-Afin de se protéger contre les attaques de type brute force ou envoi massif de formulaire, il faudrait mettre des captchas (comme les reCAPTCHAS de Google) afin de s'assurer que c'est bien un humain qui effectue l'action. Ainsi on rendrait impossible les attaques de type brute force effectuées à l'aide de script. De plus, le reCAPTCHAS de Google est vraiment simple d'utilisation et gère de manière automatique une blacklist des adresses IP qui ont tenté de brute-forcer un formulaire.
+Afin de se protéger contre les attaques de type brute force ou envoi massif de formulaire, il faudrait mettre des captchas (comme les reCAPTCHAS de Google) afin de s'assurer que c'est bien un humain qui effectue l'action. Ainsi on rendrait impossible les attaques de type brute force effectuées à l'aide de scripts. De plus, le reCAPTCHAS de Google est vraiment simple d'utilisation et gère de manière automatique une blacklist des adresses IP qui ont tenté de brute-forcer un formulaire.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -950,7 +949,7 @@ Afin de se protéger contre les attaques de type brute force ou envoi massif de 
 \subsection{\emph{Cross-site request forgery}}
 \label{ssec:cm-csrf}
 
-La contre-mesures la plus répandu pour se protéger des failles web de type CSRF est l'authentification par token. Lorsqu'une requête est soumise au serveur, un header supplémentaire contenant le token est ajouté. Le token est vérifié avant que de réaliser l'action. La génération du token est une étape critique. Il est nécessaire qu'il soit généré de manière aléatoire, n'utiliser que des librairies standards.
+La contre-mesures la plus répandu pour se protéger des failles web de type CSRF est l'authentification par token. Lorsqu'une requête est soumise au serveur, un header supplémentaire contenant le token est ajouté. Le token est vérifié avant de réaliser l'action. La génération du token est une étape critique. Il est nécessaire qu'il soit généré de manière aléatoire, n'utilisant que des librairies standards.
 
 Il existe d'autres contre-mesures additionnelles, notamment ajouter des étapes de validation (confirmation, captcha) lors des actions jugées critiques. Optionnellement, il est possible de vérifier depuis quelle page la requête a été effectuée. Bien qu'une contre-mesure supplémentaire ne soit pas de refus, il faut savoir qu'il est possible de forger une requête et donc de modifier cette valeur.
 
@@ -986,7 +985,7 @@ Si le token est valide \textbf{(vérification de la signature)} et n'est pas bla
 \subsection{Durée de vie de la session}
 \label{ssec:cm-dureeviesession}
 
-La durée de vie d'une session dépend des informations et des actions dont l'utilisateur a besoin. Il est important de trouver un juste milieu; si la durée de vie est trop courte, alors l'utilisateur sera obligé de s'authentifier plusieurs fois par jour. Dans le cas contraire, l'inattention d'un utilisateur quittant son bureau sans verrouillé sa session, permettrait à un collègue d'accéder à son compte pendant son absence. De plus, les actions et les données dont un utilisateur standard ou d'un administrateur a accès sont différentes. C'est pourquoi une distinction entre ces 2 types de profils sont nécessaires.
+La durée de vie d'une session dépend des informations et des actions dont l'utilisateur a besoin. Il est important de trouver un juste milieu; si la durée de vie est trop courte, alors l'utilisateur sera obligé de s'authentifier plusieurs fois par jour. Dans le cas contraire, l'inattention d'un utilisateur quittant son bureau sans verrouiller sa session, permettrait à un collègue d'accéder à son compte pendant son absence. De plus, les actions et les données auxquelles un utilisateur standard ou un administrateur à accès sont différentes. C'est pourquoi une distinction entre ces 2 types de profils est nécessaires.
 
 \begin{description}
 \item[Utilisateur] 10 jours
@@ -1023,7 +1022,7 @@ Pour cela, nous avons créé un \texttt{dockerCompose} qui nous permet de créer
 
 Notre serveur proxy nginx aura pour tâche de centraliser toutes les requêtes HTTPS et de les rediriger vers les serveurs adéquats (dans notre cas, vu que nous avons qu'un seul service web toutes les requêtes seront redirigées vers notre service nginx).
 Vu que notre proxy est accessible directement depuis internet, il possède un certificat SSL délivré par Let's Encrypt.
-Ce certificat est renouvelé à intervalle régulier par le container \emph{nginx let's encrypt compagnion}
+Ce certificat est renouvelé à intervalle régulière par le container \emph{nginx let's encrypt compagnion}
 \vspace{3mm}
 
 \item[•] \textbf{\emph{Nginx let's encrypt compagnion}}
@@ -1069,14 +1068,14 @@ Un autre endroit où les messages d'erreur doivent être le plus vague possible 
 \subsection{Accès non-contrôlé au hardware}
 \label{ssec:cm-acceshardware}
 
-L'accès aux différents modules (gateway et capteurs) doivent être protégés afin d'éviter à une tierce partie d'accéder au firmware ou programmes qui tournent sur ces derniers. En effet, si des clés de chiffrement sont disponible sur ces modules afin de chiffrer les trames envoyées entre les senseurs et les gateway, il faut s'assurer que l'accès à cette information est protégé.
+L'accès aux différents modules (gateway et capteurs) doit être protégé afin d'éviter à une tierce partie d'accéder au firmware ou programmes qui tournent sur ces derniers. En effet, si des clés de chiffrement sont disponible sur ces modules afin de chiffrer les trames envoyées entre les senseurs et les gateway, il faut s'assurer que l'accès à cette information soit protégé.
 
-Il serait envisageable comme première mesure d'enfermer ces modules dans des armoires techniques fermées à clé afin d'en limiter l'accès.
+Il serait envisageable, comme première mesure, d'enfermer ces modules dans des armoires techniques fermées à clé afin d'en limiter l'accès.
 
 \subsection{Composants réinscriptibles}
 \label{ssec:cm-fuse}
 
-Afin de garantir la persistance du hardware en cas de vol, les constructeur ont mis en place un système appelé "fuse protection". Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permettent d'éviter que les éléments de la mémoire soient lus, et par conséquent, sont de plus en plus installés dans les chips de nos jours. Cette protection est mise en place, par exemple, en configurant certains bits dans le chip or en fusionnant les lignes de contrôle correspondantes. Ces \textit{fuse} ne sont pas toujours résistants à différentes techniques de manipulation spécifiques. Ces \textit{Fuse bits} qui sont configurés peuvent être remis à 0 par une injection par laser. Une fois que ces \textit{fuse} sont remis à 0, l'analyse du système (lecture des informations) peut continuer. Une contremesure efficace est un maillage de connecteurs qui est placé autour du chip et électriquement connecté à ce dernier. Si le chip est ouvert ou attaqué physiquement, ce maillage est détruit ce qui résulte en la destruction du chip, rendant impossible la récupération des informations (voir \autoref{laser}).
+Afin de garantir la persistance du hardware en cas de vol, les constructeur ont mis en place un système appelé "fuse protection". Ces "protection fuse" peuvent être de type logiciel ou matériel. Ils permettent d'éviter que les éléments de la mémoire soient lus, et par conséquent, sont de plus en plus installés dans les chips de nos jours. Cette protection est mise en place, par exemple, en configurant certains bits dans le chip ou en fusionnant les lignes de contrôle correspondantes. Ces \textit{fuse} ne sont pas toujours résistants à différentes techniques de manipulation spécifiques. Ces \textit{Fuse bits} qui sont configurés peuvent être remis à 0 par une injection par laser. Une fois que ces \textit{fuse} sont remis à 0, l'analyse du système (lecture des informations) peut continuer. Une contremesure efficace est un maillage de connecteurs qui est placé autour du chip et qui est électriquement connecté à ce dernier. Si le chip est ouvert ou attaqué physiquement, ce maillage est détruit ce qui résulte en la destruction du chip, rendant impossible la récupération des informations (voir \autoref{laser}).
 
 \begin{figure}[!h]
 	\centering
@@ -1113,15 +1112,15 @@ Une fois la trame reçue par la gateway, ou par le capteur, elle serait déchiff
 La sécurité du réseau LoRaWAN repose sur deux chiffrements AES-128.
 
 \begin{itemize}
-\item[•] \textbf{Network Session Key} (NwkSKey) assure l'authenticité des nœuds du réseau. La \emph{NwkSKey} permet à l'opérateur de sécurisé le réseau. Cette clé est connu par l'opérateur du réseau et par les fournisseurs d'applications autorisés.
-\item[•] \textbf{Application Session Key} (AppSKey) assure la confidentialité des données. La \emph{AppSKey} permet au fournisseur de l'application de protéger les données transitant par le réseau. Cette clé n'est connu que du fournisseur de l'application. Aucun service tiers peut donc déchiffrer le contenu des messages.
+\item[•] \textbf{Network Session Key} (NwkSKey) assure l'authenticité des nœuds du réseau. La \emph{NwkSKey} permet à l'opérateur de sécuriser le réseau. Cette clé est connue par l'opérateur du réseau et par les fournisseurs d'applications autorisés.
+\item[•] \textbf{Application Session Key} (AppSKey) assure la confidentialité des données. La \emph{AppSKey} permet au fournisseur de l'application de protéger les données transitant par le réseau. Cette clé n'est connue que du fournisseur de l'application. Aucun service tiers peut donc déchiffrer le contenu des messages.
 \end{itemize}
 
 Les données envoyées sont chiffrées avec la \emph{AppSKey} et un en-tête est ajouté. Cet en-tête contient notamment les adresses source et destination. Sur la base de cette nouvelle donnée, un MIC est calculé à l'aide de la \emph{NwkSKey}  pour garantir l'intégrité. Ce MIC permet au réseau de vérifier l'intégrité du message et authentifier le nœud de l'envoie.
 
 \subsubsection{Activation}
 
-Les équipements souhaitant communiqués sur le réseau LoraWAN doivent premièrement obtenir des clés de sessions. Deux méthodes sont disponibles : \textbf{Over-The-Air Activation} (OTAA) ou \textbf{Activation By Personalization} (APB) qui est hors scope dans notre cas.
+Les équipements souhaitant communiquer sur le réseau LoraWAN doivent premièrement obtenir des clés de sessions. Deux méthodes sont disponibles : \textbf{Over-The-Air Activation} (OTAA) ou \textbf{Activation By Personalization} (APB) qui est hors scope dans notre cas.
 
 Le nœud doit transmettre une \emph{join request} au réseau sur la base de 3 paramètres.
 \begin{enumerate}
@@ -1131,9 +1130,9 @@ Le nœud doit transmettre une \emph{join request} au réseau sur la base de 3 pa
 \end{enumerate}
 \vspace{3mm}
 
-Une fois envoyé au serveur d'enregistrement, il vérifie le MIC de la requête. Si la requête est valide, le serveur envoie une réponse contenant les informations nécessaire pour dériver les clés de sessions (AppSKey et NwkSKey), l'adresse du nœuds sur 32 bits. Les clés de sessions sont générées à chaque nouvelle session.
+Une fois ces données envoyées au serveur d'enregistrement, il vérifie le MIC de la requête. Si la requête est valide, le serveur envoie une réponse contenant les informations nécessaire pour dériver les clés de sessions (AppSKey et NwkSKey), l'adresse du nœuds sur 32 bits. Les clés de sessions sont générées à chaque nouvelle session.
 
-Comme la sécurité s'appuie entièrement sur une chiffrement symétrique, il est important que le transfert de cette information entre les différentes entités se fasse d'une manière sécurisé. De plus, comme l'équipement stocke une information sensible à savoir la clé de chiffrement. Le système doit stocké la clé d'une manière sécurisée. Mais en dehors de cela, nous pouvons considérer le système sécuritaire natif de LoRaWAN comme tout à fait convenable.
+Comme la sécurité s'appuie entièrement sur une chiffrement symétrique, il est important que le transfert de cette information entre les différentes entités se fasse d'une manière sécurisée. De plus, comme l'équipement stocke une information sensible, à savoir la clé de chiffrement, il faut le faire de manière sécurisée. En dehors de cela, nous pouvons considérer le système sécuritaire natif de LoRaWAN comme tout à fait convenable.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -1150,7 +1149,7 @@ Afin d'éviter toute attaque du type déni de service, il serait envisageable d'
 
 En ce qui concerne le frontend, seul un utilisateur authentifié peut accéder aux données. On pourrait filtrer les requêtes ICMP afin d'éviter une attaque de type \textit{smurf attack}. Afin d'éviter une attaque de type \textit{SYN Flood}, on pourrait limiter dans le temps le nombre de requêtes effectuées par un certain client authentifié.
 
-Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permettre un \textit{autoscaling} lorsque le serveur est surchargé. Toutefois, cette solution serait inefficace si l'attaque par DDoS est de grande envergure.
+Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permettre un \textit{autoscaling} lorsque le serveur est surchargé. Toutefois, cette solution serait inefficace si l'attaque par DDoS est de grande envergure et le coûts engendrés seraient énormes.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -1164,9 +1163,9 @@ Il serait possible d'héberger le backend sur un fournisseur IaaS afin de permet
 \subsection{Intrusion dans les systèmes hébergeurs}
 \label{ssec:cm-intrusion}
 
-Si l'infrastructure est hébergée sur un fournisseur IaaS, les mises à jour du système sont à la charge du développeur. Si un service PaaS est utilisé, ces mises à jour sont à la charge du fournisseur de services.
+Si l'infrastructure est hébergée chez un fournisseur IaaS, les mises à jour du système sont à la charge du développeur. Si un service PaaS est utilisé, ces mises à jour sont à la charge du fournisseur de services.
 
-Mettre à jour les applications utilisées ainsi que les systèmes d'exploitations doivent être régulièrement mis à jour afin de contrer les vulnérabilités découvertes et corrigées.
+Les applications utilisées ainsi que les systèmes d'exploitations doivent être régulièrement mis à jour afin de contrer les vulnérabilités découvertes et corrigées.
 
 \medskip
 \textbf{Librairies et documentation :}
@@ -1240,7 +1239,7 @@ Ralentissement volontaire de la base de données & \cmark \\
 \vspace{5mm}
 \end{center}
 
-Et plein d'autres... Bien évidemment, certaines manquent surement à l'appel mais les grosses ayant un gros impacts sont belles et bien listées ici.
+Et plein d'autres... Bien évidemment, certaines manquent sûrement à l'appel mais les grosses ayant un gros impacts sont belles et bien listées ici.
 
 \clearpage
 \subsection*{Remarques diverses}
